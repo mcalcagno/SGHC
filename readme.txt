@@ -1,1 +1,0 @@
-Proyecto de desarrollo de sghc
