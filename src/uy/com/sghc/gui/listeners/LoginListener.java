@@ -1,19 +1,22 @@
 package uy.com.sghc.gui.listeners;
 
-import javax.swing.*;
-
-import uy.com.sghc.gui.frames.LoginFrame;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+
+import org.apache.log4j.Logger;
+
+import uy.com.sghc.config.PropController;
+import uy.com.sghc.gui.frames.LoginFrame;
 
 /**
  * Created by saul on 16/12/14.
  */
 public class LoginListener implements ActionListener {
-//    private static Logger logger = Logger.getLogger(LoginListener.class);
+    private static Logger logger = Logger.getLogger(LoginListener.class);
 
-    //protected static JFrame desktop = new Desktop();
+//    protected static JFrame desktop = new Desktop();
     private LoginFrame login;
 
     public LoginListener(LoginFrame login) {
@@ -28,19 +31,19 @@ public class LoginListener implements ActionListener {
                 || e.getSource()==this.login.getUserText()) {
             // Usuario vacio
             if (this.login.getUserText().getText().equals("")) {
-//                JOptionPane.showMessageDialog(this.login, PropController.getPropMessage(PropController.MESS_LOGIN_USUARIO_VACIO), "Error",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this.login, PropController.getPropMessage(PropController.MESS_LOGIN_USUARIO_VACIO), "Error",JOptionPane.ERROR_MESSAGE);
                 this.login.getUserText().requestFocus();
             }
             // Password vacia
             else if (this.login.getPasswordText().getPassword().length==0) {
-//                JOptionPane.showMessageDialog(this.login, PropController.getPropMessage(PropController.MESS_LOGIN_PASSWORD_VACIO), "Error",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this.login, PropController.getPropMessage(PropController.MESS_LOGIN_PASSWORD_VACIO), "Error",JOptionPane.ERROR_MESSAGE);
                 this.login.getPasswordText().requestFocus();
             }
             // Autenticar, se pasa usuario y password
             else {
                 if (authenticateUser(this.login.getUserText().getText(),
                         this.login.getPasswordText().getPassword())) {
-      //              desktop.setVisible(true);
+//                    desktop.setVisible(true);
                     this.login.dispose();
                 }
                 else {
@@ -53,7 +56,7 @@ public class LoginListener implements ActionListener {
     }
 
     // Método que hace la autenticación del usuario llamando al AppManager
-    private boolean authenticateUser(String user, char[] password) {
+    private boolean authenticateUser(final String user, final char[] password) {
         //try {
             //return AppManager.authenticateUser(user, password);
         //}catch (WSException e){
