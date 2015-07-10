@@ -1,5 +1,17 @@
 package uy.com.sghc.gui.frames;
 
+import java.awt.Color;
+import java.awt.Image;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 import uy.com.sghc.config.FileAccesor;
 import uy.com.sghc.config.PropController;
 import uy.com.sghc.gui.frames.components.RoundBorder;
@@ -7,12 +19,11 @@ import uy.com.sghc.gui.frames.components.RoundJPasswordField;
 import uy.com.sghc.gui.frames.components.RoundJTextField;
 import uy.com.sghc.gui.listeners.LoginListener;
 
-import javax.swing.*;
-import java.awt.*;
-
 public class LoginFrame  extends JFrame {
 
-    private RoundJTextField userText;
+	private static final long serialVersionUID = 1L;
+	
+	private RoundJTextField userText;
     private RoundJPasswordField passwordText;
     private JButton entrarButton;
 
@@ -26,16 +37,17 @@ public class LoginFrame  extends JFrame {
         this.initComponentes(loginPanel);
         this.setAlwaysOnTop(true);
         this.setResizable(false);
-//        Image icon = new ImageIcon(FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGO))).getImage();
-//        setIconImage(icon);
+        Image icon = new ImageIcon(FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGO))).getImage();
+        setIconImage(icon);
     }
 
-    private void initComponentes(JPanel panel) {
+    private void initComponentes(final JPanel panel) {
         panel.setLayout(null);
 
-//        ImageIcon image = new ImageIcon(FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGO)));
+        ImageIcon image = new ImageIcon(FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGO)));
         JLabel label = new JLabel("LABEL");
         label.setBounds(10, 10, 140, 125);
+        label.setIcon(image);
         panel.add(label);
 
         JLabel userLabel = new JLabel(PropController.getPropInterfaz(PropController.INT_LOGIN_USER));

@@ -5,7 +5,10 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
 public class RoundJPasswordField extends JPasswordField {
-    private Shape shape;
+    
+	private static final long serialVersionUID = 1L;
+	
+	private Shape shape;
     public RoundJPasswordField(int size) {
         super(size);
         setOpaque(false); // As suggested by @AVD in comment.

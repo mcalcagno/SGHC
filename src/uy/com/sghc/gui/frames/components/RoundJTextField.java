@@ -5,7 +5,10 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
 public class RoundJTextField extends JTextField {
-    private Shape shape;
+
+	private static final long serialVersionUID = 1L;
+
+	private Shape shape;
 
     public RoundJTextField() {
         super();

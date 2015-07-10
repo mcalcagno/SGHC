@@ -30,6 +30,7 @@ public class Ficha {
     private Integer motivoConsulta;
 	@XmlElement(name = "Observaciones")
     private Integer observaciones;
+	
 	public Integer getNumero() {
 		return numero;
 	}

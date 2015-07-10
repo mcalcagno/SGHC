@@ -3,13 +3,13 @@ package uy.com.sghc.config;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.Map;
+import java.util.Properties;
 
-/**
- * Created by saul on 12/12/14.
- */
+import org.apache.log4j.Logger;
+
 public class PropController {;
-//    private static Logger logger = Logger.getLogger(PropController.class);
+    private static Logger logger = Logger.getLogger(PropController.class);
 
     private static final String CONFIG_FILE = "/configuraciones/config.properties";
     private static final String MENSAJES_FILE = "/configuraciones/mensajes.properties";
@@ -30,7 +30,9 @@ public class PropController {;
     public static final String MESS_LOGIN_PASSWORD_VACIO = "Mensajes.PASSWORD_VACIO";
     public static final String MESS_LOGIN_EXITO = "Mensajes.LOGIN_EXITO";
     public static final String MESS_CERRAR_VENTANA = "Mensajes.CERRAR_VENTANA";
-    public static final String MESS_CONFIG_OK = "Mensajes.CONFIG_OK";
+    public static final String MESS_CONFIG_OK = "Mensajes.CONFIG_OK";    
+	public static final String MESS_PERSIST_FILE_CANT_CLOSE_BUFFER = "Mensajes.PERSIST_FILE_CANT_CLOSE_BUFFER";
+	public static final String MESS_PERSIST_FILE_CANT_CLOSE_FILE = "Mensajes.PERSIST_FILE_CANT_CLOSE_FILE";
 
     /**
      * Propiedades para configuracion de la interfaz grafica
@@ -40,8 +42,6 @@ public class PropController {;
     public static final String INT_LOGIN_USER = "LoginFrame.USER";
     public static final String INT_LOGIN_PASS = "LoginFrame.PASS";
     public static final String INT_LOGIN_EBOTON = "LoginFrame.EBOTON";
-
-
 
     /**
      * Propiedades para la comunicacion con el WS
@@ -60,26 +60,26 @@ public class PropController {;
         return getPropConfig(PROP_CONFIGURABLES).split(";");
     }
     
-//    public static void setPropConfig(Map<String,String> propiedades) throws ConfigException {
-//        checkLocalFileDir();
-//        FileAccesor.deleteFile(LOCAL_FILE_DIR);
-//        for (String key : propiedades.keySet()) {
-//            try {
-//                String valor = propiedades.get(key);
-//                if (!valor.isEmpty()) {
-//                    FileAccesor.addLine(key + "=" + propiedades.get(key), LOCAL_FILE_DIR);
-//                }
-//            } catch (IOException e) {
-//                throw new ConfigException(ConfigException.CANT_READ_PERSISTENCE, e);
-//            }
-//        }
-//    }
+    public static void setPropConfig(final Map<String,String> propiedades) throws ConfigException {
+        checkLocalFileDir();
+        FileAccesor.deleteFile(LOCAL_FILE_DIR);
+        for (String key : propiedades.keySet()) {
+            try {
+                String valor = propiedades.get(key);
+                if (!valor.isEmpty()) {
+                    FileAccesor.addLine(key + "=" + propiedades.get(key), LOCAL_FILE_DIR);
+                }
+            } catch (final IOException e) {
+                throw new ConfigException(ConfigException.CANT_READ_PERSISTENCE, e);
+            }
+        }
+    }
 
     public static void resetConfigurations() {
         FileAccesor.deleteFile(LOCAL_FILE_DIR);
     }
 
-    public static String getPropConfig(String parametro) {
+    public static String getPropConfig(final String parametro) {
         String propLocal = getPropertyLocal(parametro, LOCAL_FILE_DIR);
         if (propLocal==null) {
             propLocal = getPropertyJar(parametro, CONFIG_FILE);
@@ -87,17 +87,16 @@ public class PropController {;
         return propLocal;
     }
 
-    public static String getPropMessage(String tipoMensaje) {
+    public static String getPropMessage(final String tipoMensaje) {
         return getPropertyJar(tipoMensaje, MENSAJES_FILE);
     }
 
-    public static String getPropInterfaz(String tipoMensaje) {
+    public static String getPropInterfaz(final String tipoMensaje) {
         return getPropertyJar(tipoMensaje, INTERFAZ_FILE);
     }
 
-    private static String getPropertyLocal(String property, String fileName) {
+    private static String getPropertyLocal(final String property, final String fileName) {
         checkLocalFileDir();
-        // intenta obtener la propiedad del archivo físico
         File f = new File(LOCAL_FILE_DIR);
         FileInputStream fis = null;
         try {
@@ -109,23 +108,27 @@ public class PropController {;
             } else {
                 return null;
             }
-        } catch (Exception e) {
-//            logger.debug("Error al leer el archivo: "+fileName+" "+e.getMessage());
+        } catch (final Exception e) {
+            logger.debug("Error al leer el archivo: "+fileName+" "+e.getMessage());
             return null;
         } finally {
             try  {
-                if (fis!=null) fis.close();
-            } catch (Exception ex) {}
+                if (fis!=null) {
+                	fis.close();
+                }
+            } catch (final Exception ex) {
+            	
+            }
         }
     }
 
-    private static String getPropertyJar(String property, String fileName) {
+    private static String getPropertyJar(final String property, final String fileName) {
         try {
             Properties prop = new Properties();
             prop.load(FileAccesor.getInputStream(fileName));
             return prop.getProperty(property);
-        } catch (Exception e) {
-//            logger.debug("Error al leer el archivo: "+fileName+" "+e.getMessage());
+        } catch (final Exception e) {
+            logger.debug("Error al leer el archivo: "+fileName+" "+e.getMessage());
             return null;
         }
     }
@@ -143,10 +146,8 @@ public class PropController {;
                     relativePath += File.separator + relativePaths[i];
                 }
                 LOCAL_FILE_DIR = FileAccesor.checkDirectorios(System.getProperty("user.home"), relativePath) + relativePaths[relativePaths.length-1];
-
-
-            } catch (Exception e) {
-//                logger.debug("Error al leer el archivo: " + CONFIG_FILE + " " + e.getMessage());
+            } catch (final Exception e) {
+                logger.debug("Error al leer el archivo: " + CONFIG_FILE + " " + e.getMessage());
                 LOCAL_FILE_DIR = null;
             }
         }
