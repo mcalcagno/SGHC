@@ -12,7 +12,7 @@ public abstract class FileAccesor {
 
     public static URL getURL(final String resourceRelativePath) {
         logger.debug("Loading URL: " + resourceRelativePath);
-        return FileAccesor.class.getResource(resourceRelativePath);
+        return resourceRelativePath==null?null:FileAccesor.class.getResource(resourceRelativePath);
     }
 
     public static InputStream getInputStream(final String resourceRelativePath) {

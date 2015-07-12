@@ -2,6 +2,7 @@ package uy.com.sghc.gui.frames;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -37,14 +38,22 @@ public class LoginFrame  extends JFrame {
         this.initComponentes(loginPanel);
         this.setAlwaysOnTop(true);
         this.setResizable(false);
-        Image icon = new ImageIcon(FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGO))).getImage();
+        
+        Image icon = null;
+        if (FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGO))!=null) {
+        	icon = new ImageIcon(FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGO))).getImage();
+        }        
         setIconImage(icon);
     }
 
     private void initComponentes(final JPanel panel) {
         panel.setLayout(null);
-
-        ImageIcon image = new ImageIcon(FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGO)));
+        URL url = FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGO));
+        ImageIcon image = new ImageIcon(); 
+        if (url!=null) {
+        	image = new ImageIcon(url);	
+        }
+        
         JLabel label = new JLabel("LABEL");
         label.setBounds(10, 10, 140, 125);
         label.setIcon(image);
