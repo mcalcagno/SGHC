@@ -1,6 +1,11 @@
-package uy.com.sghc.dtos;
+package uy.com.sghc.logica.entidades;
 
-public class PacienteDto {
+import java.util.ArrayList;
+import java.util.List;
+
+import uy.com.sghc.dtos.PacienteDto;
+
+public class Paciente {
 
     private Long ci;
 	private String primerNombre;
@@ -11,9 +16,24 @@ public class PacienteDto {
 	private String telefono;
 	private String celular;
 	private String mail;
+	
+	private List<Ficha> fichas;
 
-	public PacienteDto(){
+	public Paciente(){
 		// constructor por defecto
+	}
+	
+	public Paciente(final PacienteDto pacientedto) {
+		this.ci = pacientedto.getCi();
+		this.celular = pacientedto.getCelular();
+		this.direccion = pacientedto.getDireccion();
+		this.mail = pacientedto.getMail();
+		this.primerApellido = pacientedto.getPrimerApellido();
+		this.primerNombre = pacientedto.getPrimerNombre();
+		this.segundoApellido = pacientedto.getSegundoApellido();
+		this.segundoNombre = pacientedto.getSegundoNombre();
+		this.telefono = pacientedto.getTelefono();
+		this.fichas = new ArrayList<Ficha>();		
 	}
 
 	public Long getCi() {
@@ -86,5 +106,13 @@ public class PacienteDto {
 
 	public void setMail(final String mail) {
 		this.mail = mail;
-	};	
+	}
+
+	public List<Ficha> getFichas() {
+		return fichas;
+	}
+
+	public void setFichas(final List<Ficha> fichas) {
+		this.fichas = fichas;
+	};
 }

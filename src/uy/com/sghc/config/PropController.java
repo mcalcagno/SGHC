@@ -117,7 +117,8 @@ public class PropController {;
                 	fis.close();
                 }
             } catch (final Exception ex) {
-            	logger.debug("Error al cerrar el input stream"+ex.getMessage());	
+            	logger.debug("Error al cerrar el input stream"+ex.getMessage());
+            	return null;
             }
         }
     }
