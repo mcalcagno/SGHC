@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
     "obseravaciones"
 })
 
-public class Ficha {
+public class FichaXml {
 	
 	@XmlElement(name = "Numero")
     private Integer numero;

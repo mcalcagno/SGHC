@@ -17,7 +17,7 @@ public class ControlPaciente implements IFachadaPaciente {
 	@Override
 	public void crearPaciente(final PacienteDto pacientedto) {
 		final Paciente paciente = new Paciente(pacientedto);
-		persistenciaPaciente.crearPaciente(paciente);
+		//persistenciaPaciente.crearPaciente(paciente);
 	}
 
 	@Override 

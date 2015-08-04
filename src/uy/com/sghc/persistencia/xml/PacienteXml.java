@@ -18,10 +18,10 @@ import javax.xml.bind.annotation.XmlType;
     "telefono",
     "email"
 })
-public class Paciente {
+public class PacienteXml {
 
 	@XmlElement(name = "CI")
-    private Integer ci;
+    private Long ci;
 	@XmlElement(name = "Nombre1")
 	private String nombre1;
 	@XmlElement(name = "Nombre2")
@@ -37,10 +37,10 @@ public class Paciente {
 	@XmlElement(name = "Email")
 	private String email;
 	
-	public Integer getCI() {
+	public Long getCI() {
 		return ci;
 	}
-	public void setCI(Integer ci) {
+	public void setCI(Long ci) {
 		this.ci = ci;
 	}
 	public String getNombre1() {

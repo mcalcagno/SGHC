@@ -11,7 +11,7 @@ public interface IPersistirPaciente {
 	 * Crea un paciente en la base de datos a partir de los datos 
 	 * @param paciente
 	 */
-	public void crearPaciente(Paciente paciente);
+	public void crearPaciente(Paciente paciente) throws SGHCExcepcion;
 	
 	/**
 	 * Borra un paciente de la base de datos a partir de su número de cédula (clave).
