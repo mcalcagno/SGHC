@@ -2,10 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/mcalcagno/Documents/libs y mas/apache-log4j-1.2.17/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="C:/Users/mcalcagno/Documents/libs y mas/commons-lang-2.6-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/mcalcagno/Documents/libs y mas/commons-lang-2.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/mcalcagno/Documents/libs y mas/commons-collections4-4.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/mcalcagno/Documents/libs y mas/commons-collections4-4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mcalcagno/SGHC/lib/commons-collections4-4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mcalcagno/SGHC/lib/commons-collections4-4.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mcalcagno/SGHC/lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mcalcagno/SGHC/lib/commons-lang-2.6-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mcalcagno/SGHC/lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
