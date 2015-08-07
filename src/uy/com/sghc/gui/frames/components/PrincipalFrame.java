@@ -1,0 +1,66 @@
+package uy.com.sghc.gui.frames.components;
+
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+public class PrincipalFrame extends JFrame {
+
+	private static final long serialVersionUID = -688266337205684858L;
+	
+	JDesktopPane desktop;
+	
+	public PrincipalFrame() {
+//		super(PropController.getPropInterfaz(PropController.DESKTOP_TITULO));
+		super("Sistema de Gestión de Historias Clínicas");
+		this.desktop = new JDesktopPane();
+		
+		JMenuBar barra = new JMenuBar(); // create menu bar
+		
+//      JMenu menuInicial = new JMenu(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL));
+		JMenu menuInicial = new JMenu("Menu Inicial");
+		
+//		JMenuItem menuPacientes = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_PACIENTE));
+		JMenuItem menuPacientes = new JMenuItem("Pacientes"); 
+
+//		JMenuItem menuFichas = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_FICHAS));
+		JMenuItem menuFichas = new JMenuItem("Fichas");
+		
+		menuInicial.add(menuPacientes);
+		menuInicial.add(menuFichas);
+
+		barra.add(menuInicial);	
+		add(this.desktop);		
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setVisible(false);
+	}
+	
+	private <T extends JInternalFrame> boolean abrirVentana(final T frame) {
+        if (estaCerrado(frame.getTitle())) {
+            desktop.add(frame); 
+            if (frame.isShowing()) {
+                int x = (desktop.getWidth() / 2) - (frame.getWidth() / 2);
+                int y = (desktop.getHeight() / 2) - (frame.getHeight() / 2);
+                frame.setLocation(x, y);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean estaCerrado(final String tituloIntFrame){
+        final JInternalFrame[] activos = this.desktop.getAllFrames();
+        boolean cerrado = true;
+        int i=0;
+        while (i<activos.length && cerrado){
+           cerrado=!activos[i].getTitle().equals(tituloIntFrame.trim());
+           i++;
+        }
+        return cerrado;
+    }
+	
+}

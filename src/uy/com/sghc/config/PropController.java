@@ -46,7 +46,7 @@ public class PropController {;
     /**
      * Propiedades para la comunicacion con el WS
      */
-    public static final String WS_TRUE                  = "WS.TRUE";
+    public static final String WS_TRUE                   = "WS.TRUE";
     public static final String WS_URL                    = "WS.URL";
     public static final String WS_TERMINAL               = "WS.TERMINAL";
     public static final String WS_IMPRESORALASER         = "WS.IMPRESORALASER";

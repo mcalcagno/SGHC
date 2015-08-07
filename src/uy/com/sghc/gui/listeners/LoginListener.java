@@ -5,10 +5,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import uy.com.sghc.config.PropController;
 import uy.com.sghc.gui.frames.LoginFrame;
+import uy.com.sghc.gui.frames.components.PrincipalFrame;
 
 /**
  * Created by saul on 16/12/14.
@@ -16,7 +18,7 @@ import uy.com.sghc.gui.frames.LoginFrame;
 public class LoginListener implements ActionListener {
     private static Logger logger = Logger.getLogger(LoginListener.class);
 
-//    protected static JFrame desktop = new Desktop();
+    protected static PrincipalFrame desktop = new PrincipalFrame();
     private LoginFrame login;
 
     public LoginListener(LoginFrame login) {
@@ -30,7 +32,7 @@ public class LoginListener implements ActionListener {
                 || e.getSource()==this.login.getPasswordText()
                 || e.getSource()==this.login.getUserText()) {
             // Usuario vacio
-            if (this.login.getUserText().getText().equals("")) {
+            if (StringUtils.isEmpty(this.login.getUserText().getText())) {
                 JOptionPane.showMessageDialog(this.login, PropController.getPropMessage(PropController.MESS_LOGIN_USUARIO_VACIO), "Error",JOptionPane.ERROR_MESSAGE);
                 this.login.getUserText().requestFocus();
             }
@@ -41,29 +43,25 @@ public class LoginListener implements ActionListener {
             }
             // Autenticar, se pasa usuario y password
             else {
-                if (authenticateUser(this.login.getUserText().getText(),
-                        this.login.getPasswordText().getPassword())) {
-//                    desktop.setVisible(true);
+                if (authenticateUser(this.login.getUserText().getText(), this.login.getPasswordText().getPassword())) {
+                    desktop.setVisible(true);
                     this.login.dispose();
                 }
                 else {
-                    this.login.getUserText().setText("");
-                    this.login.getPasswordText().setText("");
+                    this.login.getUserText().setText(StringUtils.EMPTY);
+                    this.login.getPasswordText().setText(StringUtils.EMPTY);
                     this.login.getUserText().requestFocus();
                 }
             }
         }
     }
-
-    // Método que hace la autenticación del usuario llamando al AppManager
+    
+    /**
+     * Por ahora controla que el usuario y password sean "admin"
+     * @param user
+     * @param password
+     */
     private boolean authenticateUser(final String user, final char[] password) {
-        //try {
-            //return AppManager.authenticateUser(user, password);
-        //}catch (WSException e){
-            /*this.logger.error(PropController.getPropMessage(e.getType()));
-            JOptionPane.showMessageDialog(null, PropController.getPropMessage(e.getType()),
-                    "Error", JOptionPane.ERROR_MESSAGE);*/
-            return true;
-    //    }
+        return user!=null && StringUtils.equalsIgnoreCase("admin", user) && StringUtils.equalsIgnoreCase("admin", String.valueOf(password));
     }
 }
