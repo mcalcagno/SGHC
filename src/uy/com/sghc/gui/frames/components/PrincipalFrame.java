@@ -1,5 +1,8 @@
 package uy.com.sghc.gui.frames.components;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -8,6 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import uy.com.sghc.gui.frames.PacienteFrame;
 
 public class PrincipalFrame extends JFrame {
 
@@ -27,7 +32,7 @@ public class PrincipalFrame extends JFrame {
 			JMenuBar barra = new JMenuBar(); // create menu bar
 			
 //	      	JMenu menuInicial = new JMenu(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL));
-			JMenu menuInicial = new JMenu("Menu Inicial");
+			JMenu menuInicial = new JMenu("Inico");
 			
 //			JMenuItem menuPacientes = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_PACIENTE));
 			JMenuItem menuPacientes = new JMenuItem("Pacientes"); 
@@ -40,12 +45,20 @@ public class PrincipalFrame extends JFrame {
 
 			barra.add(menuInicial);
 			setJMenuBar(barra);
-			
+			  
 			add(this.desktop);		
-	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 	        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	        this.setVisible(false);
 
+	        menuPacientes.addActionListener(new ActionListener() {
+	            @Override
+	            // display new internal window
+	            public void actionPerformed(final ActionEvent e) {
+	                boolean abrir = abrirVentana(new PacienteFrame());
+	            }
+	        });
+	        
 		} catch (final ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 		} catch (final InstantiationException e) {

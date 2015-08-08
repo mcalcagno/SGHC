@@ -21,7 +21,7 @@ public class LoginListener implements ActionListener {
     protected static PrincipalFrame desktop = new PrincipalFrame();
     private LoginFrame login;
 
-    public LoginListener(LoginFrame login) {
+    public LoginListener(final LoginFrame login) {
         this.login = login;
     }
 
