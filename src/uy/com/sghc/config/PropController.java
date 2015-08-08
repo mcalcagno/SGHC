@@ -41,7 +41,7 @@ public class PropController {;
     public static final String INT_LOGIN_TITULO = "LoginFrame.TITULO";
     public static final String INT_LOGIN_USER = "LoginFrame.USER";
     public static final String INT_LOGIN_PASS = "LoginFrame.PASS";
-    public static final String INT_LOGIN_EBOTON = "LoginFrame.EBOTON";
+    public static final String INT_LOGIN_BOTON = "LoginFrame.BOTON";
 
     /**
      * Propiedades para la comunicacion con el WS

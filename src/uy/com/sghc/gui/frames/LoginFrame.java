@@ -30,6 +30,9 @@ public class LoginFrame  extends JFrame {
 
     public LoginFrame() {
         super(PropController.getPropInterfaz(PropController.INT_LOGIN_TITULO));
+        
+        System.out.print(PropController.getPropInterfaz(PropController.INT_LOGIN_TITULO));
+        
         this.setSize(430, 170);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -77,7 +80,7 @@ public class LoginFrame  extends JFrame {
         passwordText.setBorder(BorderFactory.createCompoundBorder(passwordText.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         panel.add(passwordText);
 
-        entrarButton = new JButton(PropController.getPropInterfaz(PropController.INT_LOGIN_EBOTON));
+        entrarButton = new JButton(PropController.getPropInterfaz(PropController.INT_LOGIN_BOTON));
         entrarButton.setBounds(310, 100, 100, 25);
         panel.add(entrarButton);
 

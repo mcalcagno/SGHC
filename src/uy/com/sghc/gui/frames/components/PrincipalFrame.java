@@ -6,6 +6,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class PrincipalFrame extends JFrame {
 
@@ -16,27 +18,43 @@ public class PrincipalFrame extends JFrame {
 	public PrincipalFrame() {
 //		super(PropController.getPropInterfaz(PropController.DESKTOP_TITULO));
 		super("Sistema de Gestión de Historias Clínicas");
-		this.desktop = new JDesktopPane();
-		
-		JMenuBar barra = new JMenuBar(); // create menu bar
-		
-//      JMenu menuInicial = new JMenu(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL));
-		JMenu menuInicial = new JMenu("Menu Inicial");
-		
-//		JMenuItem menuPacientes = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_PACIENTE));
-		JMenuItem menuPacientes = new JMenuItem("Pacientes"); 
+		try {
+			// TODO: traer de una property la clase del lookandfeel
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			
+			this.desktop = new JDesktopPane();
+			
+			JMenuBar barra = new JMenuBar(); // create menu bar
+			
+//	      	JMenu menuInicial = new JMenu(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL));
+			JMenu menuInicial = new JMenu("Menu Inicial");
+			
+//			JMenuItem menuPacientes = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_PACIENTE));
+			JMenuItem menuPacientes = new JMenuItem("Pacientes"); 
 
-//		JMenuItem menuFichas = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_FICHAS));
-		JMenuItem menuFichas = new JMenuItem("Fichas");
-		
-		menuInicial.add(menuPacientes);
-		menuInicial.add(menuFichas);
+//			JMenuItem menuFichas = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_FICHAS));
+			JMenuItem menuFichas = new JMenuItem("Fichas");
+			
+			menuInicial.add(menuPacientes);
+			menuInicial.add(menuFichas);
 
-		barra.add(menuInicial);	
-		add(this.desktop);		
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setVisible(false);
+			barra.add(menuInicial);
+			setJMenuBar(barra);
+			
+			add(this.desktop);		
+	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	        this.setVisible(false);
+
+		} catch (final ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+		} catch (final InstantiationException e) {
+			// TODO Auto-generated catch block
+		} catch (final IllegalAccessException e) {
+			// TODO Auto-generated catch block
+		} catch (final UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+		}		
 	}
 	
 	private <T extends JInternalFrame> boolean abrirVentana(final T frame) {
