@@ -123,4 +123,19 @@ public class Paciente {
 			"|Telefono:"+telefono+"|Celular:"+celular+"|Mail:"+mail+"]";
 	}
 	
+	public PacienteDto getPacienteDto(){
+		
+		PacienteDto pacienteDto = new PacienteDto();
+		pacienteDto.setCi(ci);
+		pacienteDto.setPrimerNombre(primerNombre);
+		pacienteDto.setSegundoNombre(segundoNombre);
+		pacienteDto.setPrimerApellido(primerApellido);
+		pacienteDto.setSegundoApellido(segundoApellido);
+		pacienteDto.setDireccion(direccion);
+		pacienteDto.setMail(mail);
+		pacienteDto.setCelular(celular);
+		return pacienteDto;
+		
+	}
+	
 }

@@ -10,62 +10,65 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Paciente", propOrder = {
     "ci",
-    "nombre1",
-    "nombre2",
-    "apellido1",
-    "apellido2",
+    "primerNombre",
+    "segundoNombre",
+    "primerApellido",
+    "segundoApellido",
     "direccion",
     "telefono",
-    "email"
+    "celular",
+    "mail"
 })
 public class PacienteXml {
 
 	@XmlElement(name = "CI")
     private Long ci;
-	@XmlElement(name = "Nombre1")
-	private String nombre1;
-	@XmlElement(name = "Nombre2")
-	private String nombre2;
-	@XmlElement(name = "Apellido1")
-	private String apellido1;
-	@XmlElement(name = "Apellido2")
-	private String apellido2;
+	@XmlElement(name = "PrimerNombre")
+	private String primerNombre;
+	@XmlElement(name = "SegundoNombre")
+	private String segundoNombre;
+	@XmlElement(name = "PrimerApellido")
+	private String primerApellido;
+	@XmlElement(name = "SegundoApellido")
+	private String segundoApellido;
 	@XmlElement(name = "Direccion")
 	private String direccion;
 	@XmlElement(name = "Telefono")
 	private String telefono;
-	@XmlElement(name = "Email")
-	private String email;
+	@XmlElement(name = "Celular")
+	private String celular;
+	@XmlElement(name = "Mail")
+	private String mail;
 	
-	public Long getCI() {
+	public Long getCi() {
 		return ci;
 	}
-	public void setCI(Long ci) {
+	public void setCi(Long ci) {
 		this.ci = ci;
 	}
-	public String getNombre1() {
-		return nombre1;
+	public String getPrimerNombre() {
+		return primerNombre;
 	}
-	public void setNombre1(String nombre1) {
-		this.nombre1 = nombre1;
+	public void setPrimerNombre(String primerNombre) {
+		this.primerNombre = primerNombre;
 	}
-	public String getNombre2() {
-		return nombre2;
+	public String getSegundoNombre() {
+		return segundoNombre;
 	}
-	public void setNombre2(String nombre2) {
-		this.nombre2 = nombre2;
+	public void setSegundoNombre(String segundoNombre) {
+		this.segundoNombre = segundoNombre;
 	}
-	public String getApellido1() {
-		return apellido1;
+	public String getPrimerApellido() {
+		return primerApellido;
 	}
-	public void setApellido1(String apellido1) {
-		this.apellido1 = apellido1;
+	public void setPrimerApellido(String primerApellido) {
+		this.primerApellido = primerApellido;
 	}
-	public String getApellido2() {
-		return apellido2;
+	public String getSegundoApellido() {
+		return segundoApellido;
 	}
-	public void setApellido2(String apellido2) {
-		this.apellido2 = apellido2;
+	public void setSegundoApellido(String segundoApellido) {
+		this.segundoApellido = segundoApellido;
 	}
 	public String getDireccion() {
 		return direccion;
@@ -79,11 +82,19 @@ public class PacienteXml {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	public String getEmail() {
-		return email;
+	public String getCelular() {
+		return celular;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+	
+	
 	
 }

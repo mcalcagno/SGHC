@@ -86,5 +86,12 @@ public class PacienteDto {
 
 	public void setMail(final String mail) {
 		this.mail = mail;
-	};	
+	}
+	
+	@Override
+	public String toString() {
+		return "[PacienteDto].[Ci:"+ci+"|PrimerNombre:"+primerNombre+"|SegundoNombre:"+segundoNombre+
+			"|PrimerApellido:"+primerApellido+"|SegundoApellido:"+segundoApellido+"|Direccion:"+direccion+
+			"|Telefono:"+telefono+"|Celular:"+celular+"|Mail:"+mail+"]";
+	}
 }

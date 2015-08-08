@@ -7,17 +7,17 @@ import uy.com.sghc.excepciones.SGHCExcepcion;
 import uy.com.sghc.logica.entidades.Ficha;
 import uy.com.sghc.logica.entidades.Paciente;
 import uy.com.sghc.logica.interfaces.IFachadaPaciente;
+import uy.com.sghc.persistencia.controladores.ControlPersistirPaciente;
 import uy.com.sghc.persistencia.interfaces.IPersistirPaciente;
 import uy.com.sghc.persistencia.manejadores.ManejadorXml;
 
 public class ControlPaciente implements IFachadaPaciente {
 
-	private static IPersistirPaciente persistenciaPaciente;
+	private static IPersistirPaciente persistenciaPaciente = new ControlPersistirPaciente();
 	
 	@Override
-	public void crearPaciente(final PacienteDto pacientedto) {
-		final Paciente paciente = new Paciente(pacientedto);
-		//persistenciaPaciente.crearPaciente(paciente);
+	public void crearPaciente(final PacienteDto pacientedto) throws SGHCExcepcion {
+		persistenciaPaciente.crearPaciente(new Paciente(pacientedto));
 	}
 
 	@Override 
@@ -27,8 +27,12 @@ public class ControlPaciente implements IFachadaPaciente {
 
 	@Override
 	public void editarPaciente(PacienteDto pacientedto) throws SGHCExcepcion {		
-		final Paciente paciente = new Paciente(pacientedto);
-		persistenciaPaciente.editarPaciente(paciente);
+		persistenciaPaciente.editarPaciente(new Paciente(pacientedto));
+	}
+	
+	@Override
+	public PacienteDto obtenerPaciente(Long cedula) throws SGHCExcepcion {
+		return persistenciaPaciente.obtenerPaciente(cedula).getPacienteDto();
 	}
 
 	@Override
@@ -42,4 +46,5 @@ public class ControlPaciente implements IFachadaPaciente {
 		// TODO Auto-generated method stub
 		
 	}
+	
 }

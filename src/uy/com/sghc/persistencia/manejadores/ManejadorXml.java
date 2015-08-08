@@ -188,14 +188,15 @@ public class ManejadorXml {
 	private PacienteXml pacienteXmlFromPaciente(Paciente paciente){
 		
 		PacienteXml pacienteXml = new PacienteXml();
-		pacienteXml.setCI(paciente.getCi());
-		pacienteXml.setNombre1(paciente.getPrimerNombre());
-		pacienteXml.setNombre2(paciente.getSegundoNombre());
-		pacienteXml.setApellido1(paciente.getPrimerApellido());
-		pacienteXml.setApellido2(paciente.getSegundoApellido());
+		pacienteXml.setCi(paciente.getCi());
+		pacienteXml.setPrimerNombre(paciente.getPrimerNombre());
+		pacienteXml.setSegundoNombre(paciente.getSegundoNombre());
+		pacienteXml.setPrimerApellido(paciente.getPrimerApellido());
+		pacienteXml.setSegundoApellido(paciente.getSegundoApellido());
 		pacienteXml.setDireccion(paciente.getDireccion());
-		pacienteXml.setEmail(paciente.getMail());
+		pacienteXml.setMail(paciente.getMail());
 		pacienteXml.setTelefono(paciente.getTelefono());
+		pacienteXml.setCelular(paciente.getCelular());
 		return pacienteXml;
 		
 	}
@@ -203,28 +204,30 @@ public class ManejadorXml {
 	private Paciente pacienteFromPacienteXml(PacienteXml pacienteXml){
 		
 		Paciente paciente = new Paciente();
-		paciente.setCi(pacienteXml.getCI());
-		paciente.setPrimerNombre(pacienteXml.getNombre1());
-		paciente.setSegundoNombre(pacienteXml.getNombre2());
-		paciente.setPrimerApellido(pacienteXml.getApellido1());
-		paciente.setSegundoApellido(pacienteXml.getApellido2());
+		paciente.setCi(pacienteXml.getCi());
+		paciente.setPrimerNombre(pacienteXml.getPrimerNombre());
+		paciente.setSegundoNombre(pacienteXml.getSegundoNombre());
+		paciente.setPrimerApellido(pacienteXml.getPrimerApellido());
+		paciente.setSegundoApellido(pacienteXml.getSegundoApellido());
 		paciente.setDireccion(pacienteXml.getDireccion());
-		paciente.setMail(pacienteXml.getEmail());
+		paciente.setMail(pacienteXml.getMail());
 		paciente.setTelefono(pacienteXml.getTelefono());
+		paciente.setCelular(pacienteXml.getCelular());
 		return paciente;
 		
 	}
 	
 	private PacienteXml clonarPacienteXmlFromPaciente(Paciente paciente,PacienteXml pacienteXml){
 		
-		pacienteXml.setCI(paciente.getCi());
-		pacienteXml.setNombre1(paciente.getPrimerNombre());
-		pacienteXml.setNombre2(paciente.getSegundoNombre());
-		pacienteXml.setApellido1(paciente.getPrimerApellido());
-		pacienteXml.setApellido2(paciente.getSegundoApellido());
+		pacienteXml.setCi(paciente.getCi());
+		pacienteXml.setPrimerNombre(paciente.getPrimerNombre());
+		pacienteXml.setSegundoNombre(paciente.getSegundoNombre());
+		pacienteXml.setPrimerApellido(paciente.getPrimerApellido());
+		pacienteXml.setSegundoApellido(paciente.getSegundoApellido());
 		pacienteXml.setDireccion(paciente.getDireccion());
-		pacienteXml.setEmail(paciente.getMail());
+		pacienteXml.setMail(paciente.getMail());
 		pacienteXml.setTelefono(paciente.getTelefono());
+		pacienteXml.setCelular(paciente.getCelular());
 		return pacienteXml;
 		
 	}

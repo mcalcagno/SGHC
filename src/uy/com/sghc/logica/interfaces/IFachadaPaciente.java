@@ -31,6 +31,14 @@ public interface IFachadaPaciente {
 	public void editarPaciente(PacienteDto paciente) throws SGHCExcepcion;
 	
 	/**
+	 * Obtener datos de un paciente
+	 * Si el paciente no existe tira una excepción
+	 * @param cedula
+	 * @throws SGHCExcepcion
+	 */
+	public PacienteDto obtenerPaciente(Long cedula) throws SGHCExcepcion;
+	
+	/**
 	 * Agrega una ficha al paciente, retorna una excepción si el paciente no existe. 
 	 * Si la ficha no existe crea la ficha en el sistema y la asocia al paciente 
 	 * @param cedulaPacienye
