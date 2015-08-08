@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.HashMap;
 
 import javax.xml.bind.Binder;
 import javax.xml.bind.JAXBContext;
@@ -21,10 +20,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+import uy.com.sghc.config.PropController;
 import uy.com.sghc.excepciones.SGHCExcepcion;
 import uy.com.sghc.logica.entidades.Paciente;
 import uy.com.sghc.persistencia.xml.FichaXml;
@@ -33,6 +34,7 @@ import uy.com.sghc.persistencia.xml.PacienteXml;
 public class ManejadorXml {
 	
 	private static ManejadorXml instance = null;
+	private static Logger logger = Logger.getLogger(ManejadorXml.class);
 	
 	private ManejadorXml(){
 		// constructor por defecto
@@ -55,16 +57,17 @@ public class ManejadorXml {
 	        StringWriter stringWriter = new StringWriter();
 	        marshaller.marshal(this.pacienteXmlFromPaciente(paciente), stringWriter);
 	        String strPaciente = stringWriter.toString();
-	        //TODO: configuraciones ruta
-	        String path = "C:\\ArchivosXML\\Pacientes"+File.separator+String.valueOf(paciente.getCi())+".xml";
+	        String path = PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_PATH)+
+	        	File.separator+String.valueOf(paciente.getCi())+PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_EXTENSION);
 	        FileWriter outFile = new FileWriter(path);
 			outFile.write(strPaciente);
 			outFile.close();
+			logger.debug("Paciente creado ruta: "+path+" xml: "+strPaciente);
 		}catch(JAXBException e){
-			//TODO: loguear
+			logger.error("ERRROR PERSISTIENDO PACIENTE - "+e.getMessage(),e);
 			throw new SGHCExcepcion("ERROR AL CREAR CONTEXTO JAXB");
 		} catch (IOException e) {
-			//TODO: loguear
+			logger.error("ERRROR PERSISTIENDO PACIENTE - "+e.getMessage(),e);
 			throw new SGHCExcepcion("ERROR AL CREAR CONTEXTO JAXB");
 		}
 	}
@@ -73,12 +76,14 @@ public class ManejadorXml {
 	public void borrarPaciente(Long cedula) throws SGHCExcepcion{
 		
 		try{
-			String path = "C:\\ArchivosXML\\Pacientes"+File.separator+String.valueOf(cedula)+".xml";
+			String path = PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_PATH)+
+        		File.separator+String.valueOf(cedula)+PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_EXTENSION);
 			File archivo = new File(path);
 			//TODO: extraer la fichas del paciente y borrarlas todas
 			archivo.deleteOnExit();
+			logger.debug("Paciente borrado: "+cedula+" ruta: "+path);
 		}catch(Exception e){
-			//TODO: loguear
+			logger.error("ERRROR BORRANDO PACIENTE - "+e.getMessage(),e);
 			throw new SGHCExcepcion("ERROR AL BORRAR XML DEL PACIENTE");
 		}
 		
@@ -88,16 +93,17 @@ public class ManejadorXml {
 		
 		try {
 			Binder<Node> binder = this.getContextoBinder(PacienteXml.class);
-			//TODO: reemplazar por propiedad
-			File file = new File("C:\\ArchivosXML\\Pacientes"+File.separator+String.valueOf(paciente.getCi())+".xml");
+			String path = PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_PATH)+
+				File.separator+String.valueOf(paciente.getCi())+PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_EXTENSION);
+			File file = new File(path);
 			Document doc = this.getDocument(file); 
 			PacienteXml nuevoPaciente = (PacienteXml) binder.unmarshal(doc);
 			clonarPacienteXmlFromPaciente(paciente, nuevoPaciente);
 			binder.updateXML(nuevoPaciente);
 			persistirEdicion(file, doc);
-			
+			logger.debug("Paciente editado: "+paciente.toString());
 		}catch (JAXBException e) {
-			//TODO: loguear
+			logger.error("ERRROR AL EDITAR EL PACIENTE - "+e.getMessage(),e);
 			throw new SGHCExcepcion("ERROR AL BORRAR XML DEL PACIENTE");
 		}
 		
@@ -108,13 +114,14 @@ public class ManejadorXml {
 		Paciente paciente = null;
 		try{
 			Binder<Node> binder = this.getContextoBinder(PacienteXml.class);
-			//TODO: reemplazar por propiedad
-			File file = new File("C:\\ArchivosXML\\Pacientes"+File.separator+String.valueOf(cedula)+".xml");
+			String path = PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_PATH)+
+					File.separator+String.valueOf(cedula)+PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_EXTENSION);
+			File file = new File(path);
 			Document doc = this.getDocument(file); 
 			PacienteXml pacienteXml = (PacienteXml) binder.unmarshal(doc);
 			paciente = this.pacienteFromPacienteXml(pacienteXml);
 		}catch (JAXBException e) {
-			//TODO: loguear
+			logger.error("ERRROR OBTENIENDO PACIENTE - "+e.getMessage(),e);
 			throw new SGHCExcepcion("ERROR AL BORRAR XML DEL PACIENTE");
 		}
 		return paciente;
@@ -124,23 +131,23 @@ public class ManejadorXml {
 	 * Metodos auxiliares
 	 */
 	
-	private static Document getDocument(File file) throws SGHCExcepcion{
+	private Document getDocument(File file) throws SGHCExcepcion{
 		Document doc = null;
 		try{
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			doc = db.parse(file);
 		}catch(ParserConfigurationException e){
-			//TODO: loguear
+			logger.error("ERRROR OBTENIENDO EL DOCUMENTO - "+e.getMessage(),e);
 			throw new SGHCExcepcion("ERROR AL CREAR CONTEXTO JAXB");
 		}catch(IOException e){
-			//TODO: loguear
+			logger.error("ERRROR OBTENIENDO EL DOCUMENTO - "+e.getMessage(),e);
 			throw new SGHCExcepcion("ERROR AL CREAR CONTEXTO JAXB");
 		}catch(SAXException e){
-			//TODO: loguear
+			logger.error("ERRROR OBTENIENDO EL DOCUMENTO - "+e.getMessage(),e);
 			throw new SGHCExcepcion("ERROR AL CREAR CONTEXTO JAXB");
 		}catch(Exception e){
-			//TODO: loguear
+			logger.error("ERRROR OBTENIENDO EL DOCUMENTO - "+e.getMessage(),e);
 			throw new SGHCExcepcion("ERROR AL CREAR CONTEXTO JAXB");
 		}
 		return doc;
@@ -152,7 +159,7 @@ public class ManejadorXml {
 			JAXBContext jaxbContext = JAXBContext.newInstance(clase);
 			binder = jaxbContext.createBinder();
 		}catch(JAXBException e){
-			//TODO: loguear
+			logger.error("ERRROR OBTENIENDO EL CONTEXTO BINDER- "+e.getMessage(),e);
 			throw new SGHCExcepcion("ERROR AL CREAR CONTEXTO JAXB");
 		}
 		return binder;
@@ -169,16 +176,16 @@ public class ManejadorXml {
 			t.setOutputProperty(OutputKeys.INDENT, "yes"); 
 			t.transform(new DOMSource(doc), result);
 		}catch (TransformerConfigurationException e) {
-			//TODO: loguear
+			logger.error("ERRROR PERSISTIENOD EDICIÓN - "+e.getMessage(),e);
 			throw new SGHCExcepcion("ERROR PERSISTIENDO EDICION - TransformerConfigurationException");
 		}catch (TransformerException e) {
-			//TODO: loguear
+			logger.error("ERRROR PERSISTIENOD EDICIÓN - "+e.getMessage(),e);
 			throw new SGHCExcepcion("ERROR PERSISTIENDO EDICION - TransformerException");
 		}
 		
 	}
 
-	private static PacienteXml pacienteXmlFromPaciente(Paciente paciente){
+	private PacienteXml pacienteXmlFromPaciente(Paciente paciente){
 		
 		PacienteXml pacienteXml = new PacienteXml();
 		pacienteXml.setCI(paciente.getCi());
@@ -193,7 +200,7 @@ public class ManejadorXml {
 		
 	}
 	
-	private static Paciente pacienteFromPacienteXml(PacienteXml pacienteXml){
+	private Paciente pacienteFromPacienteXml(PacienteXml pacienteXml){
 		
 		Paciente paciente = new Paciente();
 		paciente.setCi(pacienteXml.getCI());
@@ -208,7 +215,7 @@ public class ManejadorXml {
 		
 	}
 	
-	private static PacienteXml clonarPacienteXmlFromPaciente(Paciente paciente,PacienteXml pacienteXml){
+	private PacienteXml clonarPacienteXmlFromPaciente(Paciente paciente,PacienteXml pacienteXml){
 		
 		pacienteXml.setCI(paciente.getCi());
 		pacienteXml.setNombre1(paciente.getPrimerNombre());

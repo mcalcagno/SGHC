@@ -24,17 +24,13 @@ public class PrincipalFrame extends JFrame {
 	public PrincipalFrame() {
 		super(PropController.getPropInterfaz(PropController.DESKTOP_TITULO));
 		try {
-			// TODO: traer de una property la clase del lookandfeel
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			UIManager.setLookAndFeel(PropController.getPropInterfaz(PropController.DESKTOP_LOOKANDFEEL_WIN));
 			
 			this.desktop = new JDesktopPane();
 			
 			JMenuBar barra = new JMenuBar(); // create menu bar
-			
-	      	JMenu menuInicial = new JMenu(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL));
-			
+	      	JMenu menuInicial = new JMenu(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL));			
 			JMenuItem menuPacientes = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_PACIENTE)); 
-
 			JMenuItem menuFichas = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_FICHAS));
 			
 			menuInicial.add(menuPacientes);

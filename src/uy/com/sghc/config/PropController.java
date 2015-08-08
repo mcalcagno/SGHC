@@ -23,7 +23,8 @@ public class PropController {;
      */
     public static final String CONFIG_PERSISTENCE_PATH = "PERSISTENCE_PATH";
     public static final String CONFIG_PERSISTENCE_PACIENTE_PATH = "Paciente.PATH";
-
+    public static final String CONFIG_PERSISTENCE_PACIENTE_EXTENSION = "Paciente.EXTENSION";
+    
     /**
      * Propiedades para mensajes del sistema al usuario
      */
@@ -43,11 +44,11 @@ public class PropController {;
     public static final String INT_LOGIN_USER = "LoginFrame.USER";
     public static final String INT_LOGIN_PASS = "LoginFrame.PASS";
     public static final String INT_LOGIN_BOTON = "LoginFrame.BOTON";
+    public static final String DESKTOP_LOOKANDFEEL_WIN = "Desktop.LOOKANDFEEL_WIN";
     public static final String DESKTOP_TITULO = "Desktop.TITULO"; //"Sistema de Gestión de Historias Clínicas";
     public static final String DESKTOP_MENU_INICIAL = "Desktop.MENU_INICIAL"; //"Inicio";
     public static final String DESKTOP_MENU_INICIAL_PACIENTE = "Desktop.MENU_INICIAL_PACIENTE"; //"Pacientes";
     public static final String DESKTOP_MENU_INICIAL_FICHAS = "Desktop.MENU_INICIAL_FICHAS"; //"Fichas";
-    public static final String DESKTOP_LOOKANDFEEL_WINDOWS = "Desktop.LOOKANDFEEL_WINDOWS"; //"com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
     
     public static String[] getConfigurableProperties() {
         return getPropConfig(PROP_CONFIGURABLES).split(";");
