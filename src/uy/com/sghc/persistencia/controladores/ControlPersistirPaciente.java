@@ -14,29 +14,36 @@ public class ControlPersistirPaciente implements IPersistirPaciente{
 	public void crearPaciente(Paciente paciente) throws SGHCExcepcion{
 		
 		ManejadorXml manejador = ManejadorXml.newInstance();
-		/*try{
+		try{
 			manejador.persistirNuevoPaciente(paciente);
-		}catch(){
-			
-		}*/
+		}catch(SGHCExcepcion e){
+			throw e;
+		}
 	}
 
 	@Override
 	public void borrarPaciente(Long cedula) throws SGHCExcepcion {
-		// TODO Auto-generated method stub
+		
+		ManejadorXml manejador = ManejadorXml.newInstance();
+		manejador.borrarPaciente(cedula);
 		
 	}
 
 	@Override
 	public void editarPaciente(Paciente paciente) throws SGHCExcepcion {
-		// TODO Auto-generated method stub
+		
+		ManejadorXml manejador = ManejadorXml.newInstance();
+		manejador.editarPaciente(paciente);
 		
 	}
 
 	@Override
 	public Paciente obtenerPaciente(Long cedula) throws SGHCExcepcion {
-		// TODO Auto-generated method stub
-		return null;
+
+		ManejadorXml manejador = ManejadorXml.newInstance();
+		Paciente paciente = manejador.obtenetPaciente(cedula);
+		return paciente;
+		
 	}
 
 	@Override

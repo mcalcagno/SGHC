@@ -114,5 +114,13 @@ public class Paciente {
 
 	public void setFichas(final List<Ficha> fichas) {
 		this.fichas = fichas;
-	};
+	}
+	
+	@Override
+	public String toString() {
+		return "[Paciente].[Ci:"+ci+"|PrimerNombre:"+primerNombre+"|SegundoNombre:"+segundoNombre+
+			"|PrimerApellido:"+primerApellido+"|SegundoApellido:"+segundoApellido+"|Direccion:"+direccion+
+			"|Telefono:"+telefono+"|Celular:"+celular+"|Mail:"+mail+"]";
+	}
+	
 }
