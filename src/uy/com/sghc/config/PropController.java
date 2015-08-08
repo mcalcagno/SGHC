@@ -22,6 +22,7 @@ public class PropController {;
      * Propiedades de configuracion general del sistema
      */
     public static final String CONFIG_PERSISTENCE_PATH = "PERSISTENCE_PATH";
+    public static final String CONFIG_PERSISTENCE_PACIENTE_PATH = "Paciente.PATH";
 
     /**
      * Propiedades para mensajes del sistema al usuario
@@ -30,7 +31,7 @@ public class PropController {;
     public static final String MESS_LOGIN_PASSWORD_VACIO = "Mensajes.PASSWORD_VACIO";
     public static final String MESS_LOGIN_EXITO = "Mensajes.LOGIN_EXITO";
     public static final String MESS_CERRAR_VENTANA = "Mensajes.CERRAR_VENTANA";
-    public static final String MESS_CONFIG_OK = "Mensajes.CONFIG_OK";    
+    public static final String MESS_CONFIG_OK = "Mensajes.CONFIG_OK";
 	public static final String MESS_PERSIST_FILE_CANT_CLOSE_BUFFER = "Mensajes.PERSIST_FILE_CANT_CLOSE_BUFFER";
 	public static final String MESS_PERSIST_FILE_CANT_CLOSE_FILE = "Mensajes.PERSIST_FILE_CANT_CLOSE_FILE";
 
@@ -42,20 +43,12 @@ public class PropController {;
     public static final String INT_LOGIN_USER = "LoginFrame.USER";
     public static final String INT_LOGIN_PASS = "LoginFrame.PASS";
     public static final String INT_LOGIN_BOTON = "LoginFrame.BOTON";
-
-    /**
-     * Propiedades para la comunicacion con el WS
-     */
-    public static final String WS_TRUE                   = "WS.TRUE";
-    public static final String WS_URL                    = "WS.URL";
-    public static final String WS_TERMINAL               = "WS.TERMINAL";
-    public static final String WS_IMPRESORALASER         = "WS.IMPRESORALASER";
-    public static final String WS_OPAUTOMATICA           = "WS.OPAUTOMATICA";
-    public static final String WS_DEFAULT_TEMPLATE       = "WS.DEFAULT_TEMPLATE";
-    public static final String WS_DEFAULT_TEMPLATE_PATH  = "WS.DEFAULT_TEMPLATE_PATH";
-    public static final String WS_AGENCIA_FALSE          = "WS.WS_AGENCIA_FALSE";
-    public static final String WS_IMG_WEB_SERVER_URL     = "WS.IMG_WEB_SERVER_URL";
-
+    public static final String DESKTOP_TITULO = "Desktop.TITULO"; //"Sistema de Gestión de Historias Clínicas";
+    public static final String DESKTOP_MENU_INICIAL = "Desktop.MENU_INICIAL"; //"Inicio";
+    public static final String DESKTOP_MENU_INICIAL_PACIENTE = "Desktop.MENU_INICIAL_PACIENTE"; //"Pacientes";
+    public static final String DESKTOP_MENU_INICIAL_FICHAS = "Desktop.MENU_INICIAL_FICHAS"; //"Fichas";
+    public static final String DESKTOP_LOOKANDFEEL_WINDOWS = "Desktop.LOOKANDFEEL_WINDOWS"; //"com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+    
     public static String[] getConfigurableProperties() {
         return getPropConfig(PROP_CONFIGURABLES).split(";");
     }
@@ -80,11 +73,7 @@ public class PropController {;
     }
 
     public static String getPropConfig(final String parametro) {
-        String propLocal = getPropertyLocal(parametro, LOCAL_FILE_DIR);
-        if (propLocal==null) {
-            propLocal = getPropertyJar(parametro, CONFIG_FILE);
-        }
-        return propLocal;
+    	return getPropertyJar(parametro, CONFIG_FILE);
     }
 
     public static String getPropMessage(final String tipoMensaje) {

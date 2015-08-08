@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import uy.com.sghc.config.PropController;
 import uy.com.sghc.gui.frames.PacienteFrame;
 
 public class PrincipalFrame extends JFrame {
@@ -21,8 +22,7 @@ public class PrincipalFrame extends JFrame {
 	JDesktopPane desktop;
 	
 	public PrincipalFrame() {
-//		super(PropController.getPropInterfaz(PropController.DESKTOP_TITULO));
-		super("Sistema de Gestión de Historias Clínicas");
+		super(PropController.getPropInterfaz(PropController.DESKTOP_TITULO));
 		try {
 			// TODO: traer de una property la clase del lookandfeel
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -31,14 +31,11 @@ public class PrincipalFrame extends JFrame {
 			
 			JMenuBar barra = new JMenuBar(); // create menu bar
 			
-//	      	JMenu menuInicial = new JMenu(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL));
-			JMenu menuInicial = new JMenu("Inico");
+	      	JMenu menuInicial = new JMenu(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL));
 			
-//			JMenuItem menuPacientes = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_PACIENTE));
-			JMenuItem menuPacientes = new JMenuItem("Pacientes"); 
+			JMenuItem menuPacientes = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_PACIENTE)); 
 
-//			JMenuItem menuFichas = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_FICHAS));
-			JMenuItem menuFichas = new JMenuItem("Fichas");
+			JMenuItem menuFichas = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_FICHAS));
 			
 			menuInicial.add(menuPacientes);
 			menuInicial.add(menuFichas);

@@ -12,9 +12,6 @@ import uy.com.sghc.config.PropController;
 import uy.com.sghc.gui.frames.LoginFrame;
 import uy.com.sghc.gui.frames.components.PrincipalFrame;
 
-/**
- * Created by saul on 16/12/14.
- */
 public class LoginListener implements ActionListener {
     private static Logger logger = Logger.getLogger(LoginListener.class);
 

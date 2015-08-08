@@ -31,8 +31,6 @@ public class LoginFrame  extends JFrame {
     public LoginFrame() {
         super(PropController.getPropInterfaz(PropController.INT_LOGIN_TITULO));
         
-        System.out.print(PropController.getPropInterfaz(PropController.INT_LOGIN_TITULO));
-        
         this.setSize(430, 170);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
