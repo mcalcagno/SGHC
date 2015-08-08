@@ -23,7 +23,8 @@ public class PropController {;
      */
     public static final String CONFIG_PERSISTENCE_PATH = "PERSISTENCE_PATH";
     public static final String CONFIG_PERSISTENCE_PACIENTE_PATH = "Paciente.PATH";
-
+    public static final String CONFIG_PERSISTENCE_PACIENTE_EXTENSION = "Paciente.EXTENSION";
+    
     /**
      * Propiedades para mensajes del sistema al usuario
      */
