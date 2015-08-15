@@ -1,5 +1,7 @@
 package uy.com.sghc.dtos;
 
+import org.apache.commons.lang.StringUtils;
+
 public class PacienteDto {
 
     private Long ci;
@@ -25,7 +27,7 @@ public class PacienteDto {
 	}
 
 	public String getPrimerNombre() {
-		return primerNombre;
+		return primerNombre!=null?primerNombre.trim():StringUtils.EMPTY;
 	}
 
 	public void setPrimerNombre(final String primerNombre) {
@@ -33,7 +35,7 @@ public class PacienteDto {
 	}
 
 	public String getSegundoNombre() {
-		return segundoNombre;
+		return segundoNombre!=null?segundoNombre.trim():StringUtils.EMPTY;
 	}
 
 	public void setSegundoNombre(final String segundoNombre) {
@@ -41,7 +43,7 @@ public class PacienteDto {
 	}
 
 	public String getPrimerApellido() {
-		return primerApellido;
+		return primerApellido!=null?primerApellido.trim():StringUtils.EMPTY;
 	}
 
 	public void setPrimerApellido(final String primerApellido) {
@@ -49,7 +51,7 @@ public class PacienteDto {
 	}
 
 	public String getSegundoApellido() {
-		return segundoApellido;
+		return segundoApellido!=null?segundoApellido.trim():StringUtils.EMPTY;
 	}
 
 	public void setSegundoApellido(final String segundoApellido) {
@@ -57,7 +59,7 @@ public class PacienteDto {
 	}
 
 	public String getDireccion() {
-		return direccion;
+		return direccion!=null?direccion.trim():StringUtils.EMPTY;
 	}
 
 	public void setDireccion(final String direccion) {
@@ -65,7 +67,7 @@ public class PacienteDto {
 	}
 
 	public String getTelefono() {
-		return telefono;
+		return telefono!=null?telefono.trim():StringUtils.EMPTY;
 	}
 
 	public void setTelefono(final String telefono) {
@@ -73,7 +75,7 @@ public class PacienteDto {
 	}
 
 	public String getCelular() {
-		return celular;
+		return celular!=null?celular.trim():StringUtils.EMPTY;
 	}
 
 	public void setCelular(final String celular) {
@@ -81,7 +83,7 @@ public class PacienteDto {
 	}
 
 	public String getMail() {
-		return mail;
+		return mail!=null?mail.trim():StringUtils.EMPTY;
 	}
 
 	public void setMail(final String mail) {
@@ -93,5 +95,10 @@ public class PacienteDto {
 		return "[PacienteDto].[Ci:"+ci+"|PrimerNombre:"+primerNombre+"|SegundoNombre:"+segundoNombre+
 			"|PrimerApellido:"+primerApellido+"|SegundoApellido:"+segundoApellido+"|Direccion:"+direccion+
 			"|Telefono:"+telefono+"|Celular:"+celular+"|Mail:"+mail+"]";
+	}
+
+	public String getNombreYApellido() {
+		return getPrimerNombre()+" "+getSegundoNombre()
+			+" "+getPrimerApellido()+" "+getSegundoApellido();
 	}
 }

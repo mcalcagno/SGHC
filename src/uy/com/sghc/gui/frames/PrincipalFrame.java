@@ -31,10 +31,12 @@ public class PrincipalFrame extends JFrame {
 			JMenuBar barra = new JMenuBar(); // create menu bar
 	      	JMenu menuPaciente = new JMenu(PropController.getPropInterfaz(PropController.DESKTOP_MENU_PACIENTE));			
 			JMenuItem menuNuevoPaciente = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_NUEVO_PACIENTE));
+			JMenuItem menuBuscarPaciente = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_BUSCAR_PACIENTE));
 			JMenuItem menuEditarPaciente = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_EDITAR_PACIENTE));			
 			JMenuItem menuFichas = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_FICHAS));
 			
 			menuPaciente.add(menuNuevoPaciente);
+			menuPaciente.add(menuBuscarPaciente);
 			menuPaciente.add(menuEditarPaciente);
 			menuPaciente.add(menuFichas);
 
@@ -53,7 +55,13 @@ public class PrincipalFrame extends JFrame {
 	                abrirVentana(new PacienteFrame(PacienteFrame.Operacion.NUEVO));
 	            }
 	        });
-	        
+	        menuBuscarPaciente.addActionListener(new ActionListener() {
+	            @Override
+	            // display new internal window
+	            public void actionPerformed(final ActionEvent e) {
+	                abrirVentana(new BuscarPacienteFrame());
+	            }
+	        });	        
 	        menuEditarPaciente.addActionListener(new ActionListener() {
 	            @Override
 	            // display new internal window
@@ -61,7 +69,6 @@ public class PrincipalFrame extends JFrame {
 	                abrirVentana(new PacienteFrame(PacienteFrame.Operacion.EDITAR));
 	            }
 	        });
-
 	        
 		} catch (final ClassNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -1,5 +1,6 @@
 package uy.com.sghc.logica.contoladores;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import uy.com.sghc.dtos.PacienteDto;
@@ -45,6 +46,16 @@ public class ControlPaciente implements IFachadaPaciente {
 	public void agregarFichasPaciente(Long cedulaPaciente, List<Ficha> fichas) throws SGHCExcepcion {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public List<PacienteDto> buscarPacientes(final String filtro) throws SGHCExcepcion {
+		List<Paciente> listaPacientes = persistenciaPaciente.buscarPacientesPorString(filtro);
+		List<PacienteDto> listaPacientesDto = new LinkedList<PacienteDto>();
+		for (Paciente paciente : listaPacientes) {
+			listaPacientesDto.add(paciente.getPacienteDto());
+		}
+		return listaPacientesDto;
 	}
 	
 }

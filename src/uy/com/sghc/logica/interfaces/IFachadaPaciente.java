@@ -53,6 +53,15 @@ public interface IFachadaPaciente {
 	 * @param fichas
 	 * @throws SGHCExcepcion
 	 */
-	public void agregarFichasPaciente(Long cedulaPaciente, List<Ficha> fichas) throws SGHCExcepcion;  
+	public void agregarFichasPaciente(Long cedulaPaciente, List<Ficha> fichas) throws SGHCExcepcion;
+	
+	/**
+	 * Buscar pacientes que en alguno de sus campos cumpla con la condición del filtro y retorna una lista con la información de los pacientes
+	 * en principio el DTO podría contener solo Cédula y Nombre
+	 * @param filtro
+	 * @return
+	 * @throws SGHCExcepcion
+	 */
+	public List<PacienteDto> buscarPacientes(String filtro) throws SGHCExcepcion;
 
 }

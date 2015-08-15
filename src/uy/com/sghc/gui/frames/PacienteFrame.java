@@ -34,8 +34,7 @@ public class PacienteFrame extends JInternalFrame {
 	
     private static RoundBorder border = new RoundBorder(3);
     private static Font fuente = new Font("SansSerif", Font.BOLD, 14);
-	
-	private InternalFrameAdapter internalFrameAdapter;
+    private JPanel container = new JPanel();	
 	private RoundJTextField cedulaTextField = new RoundJTextField(20);
 	private RoundJTextField primerNombreTextField = new RoundJTextField(20);
 	private RoundJTextField segundoNombreTextField = new RoundJTextField(20);
@@ -50,17 +49,17 @@ public class PacienteFrame extends JInternalFrame {
 	
 	public PacienteFrame(final Operacion op) {
 		super(op.equals(Operacion.NUEVO) ? PropController.getPropInterfaz(PropController.INT_NUEVO_PACIENTE_TITULO) : 
-				PropController.getPropInterfaz(PropController.INT_EDITAR_PACIENTE_TITULO), true, true, true, true);						
-		this.setAutoscrolls(true);
+				PropController.getPropInterfaz(PropController.INT_EDITAR_PACIENTE_TITULO), true, true, true, true);								
 		inicializarComponentes(getContentPane(), op);
 	}
+	
 	private void inicializarComponentes(final Container cp, final Operacion op) {
+		
 		NuevoPacienteListener nuevoPacienteListener = new NuevoPacienteListener(this);
 		EditarPacienteListener editarPacienteListener = new EditarPacienteListener(this);
 		
         cp.setLayout(new FlowLayout());
 
-        JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         container.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         cp.add(container);
@@ -127,7 +126,27 @@ public class PacienteFrame extends JInternalFrame {
         mailTextField.setFont(fuente);
         container.add(mailTextField);
         
-        if (op.equals(Operacion.NUEVO)) {
+        agregarListeners(op, nuevoPacienteListener, editarPacienteListener);        
+        
+        InternalFrameAdapter internalFrameAdapter = new InternalFrameAdapter() {
+            @Override
+            public void internalFrameClosing(InternalFrameEvent arg0) {
+                int i = JOptionPane.showConfirmDialog(null, PropController.getPropMessage(PropController.MESS_CERRAR_VENTANA),
+                        "Cerrar", JOptionPane.YES_NO_OPTION);
+                if (i==0) {
+                    dispose();
+                }
+            }
+        };		
+		this.pack();
+		this.setVisible(true);
+		this.setAutoscrolls(true);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addInternalFrameListener(internalFrameAdapter);        
+	}
+	
+	private void agregarListeners(final Operacion op, final NuevoPacienteListener nuevoPacienteListener, final EditarPacienteListener editarPacienteListener) {
+		if (op.equals(Operacion.NUEVO)) {
 	        ingresar.setFont(fuente);
 	        ingresar.setForeground(Color.BLACK);        
 	        container.add(new JLabel(""));
@@ -157,23 +176,9 @@ public class PacienteFrame extends JInternalFrame {
 	        telefonoTextField.addActionListener(editarPacienteListener);
 	        mailTextField.addActionListener(editarPacienteListener);
 	        celularTextField.addActionListener(editarPacienteListener);
-        }        
-        
-        internalFrameAdapter = new InternalFrameAdapter() {
-            @Override
-            public void internalFrameClosing(InternalFrameEvent arg0) {
-                int i = JOptionPane.showConfirmDialog(null, PropController.getPropMessage(PropController.MESS_CERRAR_VENTANA),
-                        "Cerrar", JOptionPane.YES_NO_OPTION);
-                if (i==0) {
-                    dispose();
-                }
-            }
-        };		
-		this.pack();
-		this.setVisible(true);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        addInternalFrameListener(internalFrameAdapter);        
+        }
 	}
+	
 	public RoundJTextField getCedulaTextField() {
 		return cedulaTextField;
 	}
