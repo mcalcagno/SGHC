@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import uy.com.sghc.dtos.FichaDto;
 import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.excepciones.SGHCExcepcion;
 import uy.com.sghc.logica.entidades.Ficha;
@@ -22,12 +23,12 @@ public class ControlPaciente implements IFachadaPaciente {
 	private static Logger logger = Logger.getLogger(ControlPaciente.class);
 	
 	@Override
-	public void crearPaciente(final PacienteDto pacientedto) throws SGHCExcepcion {
+	public void crearPaciente(final PacienteDto pacienteDto) throws SGHCExcepcion {
 		
 		PacientesIndice indice = PacientesIndice.newInstance();
-		if(!indice.existePaciente(pacientedto.getCi())){
-			indice.getPacientes().add(pacientedto.getCi());
-			persistenciaPaciente.crearPaciente(new Paciente(pacientedto));	
+		if(!indice.existePaciente(pacienteDto.getCi())){
+			indice.getPacientes().add(pacienteDto.getCi());
+			persistenciaPaciente.crearPaciente(new Paciente(pacienteDto));	
 		}else{
 			//TODO: usar mensajes.properties 
 			logger.error("YA EXISTE UN PACIENTE CON LA MISMA CÉDULA");
@@ -53,14 +54,17 @@ public class ControlPaciente implements IFachadaPaciente {
 	}
 
 	@Override
-	public void agregarFichaPaciente(Long cedulaPacienye, Ficha ficha) throws SGHCExcepcion {
-		// TODO Auto-generated method stub
-		
+	public void agregarFichaPaciente(Long cedula, FichaDto fichaDto) throws SGHCExcepcion {
+		persistenciaPaciente.agregarFichaPaciente(new Ficha(fichaDto), cedula);
 	}
 
 	@Override
-	public void agregarFichasPaciente(Long cedulaPaciente, List<Ficha> fichas) throws SGHCExcepcion {
-		// TODO Auto-generated method stub
+	public void agregarFichasPaciente(Long cedula, List<FichaDto> fichasDto) throws SGHCExcepcion {
+		
+		Iterator<FichaDto> it = fichasDto.iterator();
+		while(it.hasNext()){
+			persistenciaPaciente.agregarFichaPaciente(new Ficha(it.next()), cedula);
+		}
 		
 	}
 	

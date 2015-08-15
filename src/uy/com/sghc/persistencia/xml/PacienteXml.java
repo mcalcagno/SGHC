@@ -1,5 +1,8 @@
 package uy.com.sghc.persistencia.xml;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -17,7 +20,8 @@ import javax.xml.bind.annotation.XmlType;
     "direccion",
     "telefono",
     "celular",
-    "mail"
+    "mail",
+    "fichas"
 })
 public class PacienteXml {
 
@@ -39,6 +43,8 @@ public class PacienteXml {
 	private String celular;
 	@XmlElement(name = "Mail")
 	private String mail;
+	@XmlElement(name = "Ficha")
+    private List<FichaXml> fichas = new ArrayList<FichaXml>();
 	
 	public Long getCi() {
 		return ci;
@@ -94,7 +100,8 @@ public class PacienteXml {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	
-	
+	public List<FichaXml> getFichas() {
+		return fichas;
+	}
 	
 }

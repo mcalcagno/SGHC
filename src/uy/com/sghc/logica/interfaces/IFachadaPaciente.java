@@ -2,6 +2,7 @@ package uy.com.sghc.logica.interfaces;
 
 import java.util.List;
 
+import uy.com.sghc.dtos.FichaDto;
 import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.excepciones.SGHCExcepcion;
 import uy.com.sghc.logica.entidades.Ficha;
@@ -45,7 +46,7 @@ public interface IFachadaPaciente {
 	 * @param ficha
 	 * @throws SGHCExcepcion
 	 */
-	public void agregarFichaPaciente(Long cedulaPacienye, Ficha ficha) throws SGHCExcepcion;
+	public void agregarFichaPaciente(Long cedula, FichaDto ficha) throws SGHCExcepcion;
 	
 	/**
 	 * Agrega una lista de fichas a un paciente
@@ -53,7 +54,7 @@ public interface IFachadaPaciente {
 	 * @param fichas
 	 * @throws SGHCExcepcion
 	 */
-	public void agregarFichasPaciente(Long cedulaPaciente, List<Ficha> fichas) throws SGHCExcepcion;
+	public void agregarFichasPaciente(Long cedula, List<FichaDto> fichas) throws SGHCExcepcion;
 	
 	/**
 	 * Buscar pacientes que en alguno de sus campos cumpla con la condición del filtro y retorna una lista con la información de los pacientes

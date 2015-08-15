@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.bind.Binder;
@@ -29,6 +30,7 @@ import org.xml.sax.SAXException;
 
 import uy.com.sghc.config.PropController;
 import uy.com.sghc.excepciones.SGHCExcepcion;
+import uy.com.sghc.logica.entidades.Ficha;
 import uy.com.sghc.logica.entidades.Paciente;
 import uy.com.sghc.persistencia.xml.FichaXml;
 import uy.com.sghc.persistencia.xml.PacienteXml;
@@ -119,21 +121,12 @@ public class ManejadorXml {
 	public Paciente obtenetPaciente(Long cedula) throws SGHCExcepcion {
 		
 		Paciente paciente = null;
-		try{
-			Binder<Node> binder = getContextoBinder(PacienteXml.class);
-			String path = PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_PATH)+
-					File.separator+String.valueOf(cedula)+PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_EXTENSION);
-			File file = new File(path);
-			Document doc = getDocument(file); 
-			PacienteXml pacienteXml = (PacienteXml) binder.unmarshal(doc);
-			paciente = this.pacienteFromPacienteXml(pacienteXml);
-		}catch (JAXBException e) {
-			logger.error("ERRROR OBTENIENDO PACIENTE - "+e.getMessage(),e);
-			throw new SGHCExcepcion("ERROR AL BORRAR XML DEL PACIENTE");
-		}
+		PacienteXml pacienteXml = obtenerPacienteXml(cedula);
+		paciente = this.pacienteFromPacienteXml(pacienteXml);
 		return paciente;
+		
 	}
-	
+
 	public List<Long> obtenerPacienteIndice(){
 		
 		List<Long> lista = new ArrayList<Long>();
@@ -155,6 +148,42 @@ public class ManejadorXml {
 		return lista;
 		
 	}
+
+	public List<Ficha> obtenerFichasPaciente(Long cedula) throws SGHCExcepcion {
+		
+		List <Ficha> listaFichas = new ArrayList<Ficha>();
+		PacienteXml pacienteXml = obtenerPacienteXml(cedula);
+		List<FichaXml> fichasXml = pacienteXml.getFichas();
+		Iterator<FichaXml> it = fichasXml.iterator();
+		while(it.hasNext()){
+			FichaXml fichaXml = it.next();
+			Ficha ficha = fichaFromFichaXml(fichaXml);
+			listaFichas.add(ficha);
+		}
+		return listaFichas;
+		
+	}
+
+	public void agregarFichaPaciente(Ficha ficha, Long cedula) throws SGHCExcepcion {
+
+		try {
+			Binder<Node> binder = getContextoBinder(PacienteXml.class);
+			String path = PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_PATH)+
+				File.separator+String.valueOf(cedula)+PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_EXTENSION);
+			File file = new File(path);
+			Document doc = getDocument(file); 
+			PacienteXml pacienteXml = (PacienteXml) binder.unmarshal(doc);
+			pacienteXml.getFichas().add(fichaXmlFromFicha(ficha));
+			binder.updateXML(pacienteXml);
+			persistirEdicion(file, doc);
+			logger.debug("Paciente editado: "+pacienteXml.toString());
+		}catch (JAXBException e) {
+			logger.error("ERRROR AL AGREGAR FICHA AL PACIENTE - "+e.getMessage(),e);
+			throw new SGHCExcepcion("ERRROR AL AGREGAR FICHA AL PACIENTE");
+		} 
+		
+	}
+	
 	
 	/*
 	 * Metodos auxiliares
@@ -275,6 +304,24 @@ public class ManejadorXml {
 		
 	}
 	
+	private PacienteXml obtenerPacienteXml(Long cedula) throws SGHCExcepcion {
+		
+		PacienteXml pacienteXml = new PacienteXml();
+		try{
+			Binder<Node> binder = getContextoBinder(PacienteXml.class);
+			String path = PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_PATH)+
+					File.separator+String.valueOf(cedula)+PropController.getPropConfig(PropController.CONFIG_PERSISTENCE_PACIENTE_EXTENSION);
+			File file = new File(path);
+			Document doc = getDocument(file); 
+			pacienteXml = (PacienteXml) binder.unmarshal(doc);
+		}catch (JAXBException e) {
+			logger.error("ERRROR OBTENIENDO PACIENTE - "+e.getMessage(),e);
+			throw new SGHCExcepcion("ERROR AL OBTENER EL PACIENTE XML");
+		}
+		return pacienteXml;
+		
+	}
+	
 	private PacienteXml pacienteXmlFromPaciente(Paciente paciente){
 		
 		PacienteXml pacienteXml = new PacienteXml();
@@ -321,5 +368,30 @@ public class ManejadorXml {
 		return pacienteXml;
 		
 	}
+	
+	private Ficha fichaFromFichaXml (FichaXml fichaXml){
+		
+		Ficha ficha = new Ficha();
+		ficha.setNumero(fichaXml.getNumero());
+		ficha.setFecha(fichaXml.getFecha());
+		ficha.setMotivoConsulta(fichaXml.getMotivoConsulta());
+		ficha.setDiagnostico(fichaXml.getDiagnostico());
+		ficha.setObservaciones(fichaXml.getObservaciones());
+		return ficha;
+		
+	}
+	
+	private FichaXml fichaXmlFromFicha(Ficha ficha){
+		
+		FichaXml fichaXml = new FichaXml();
+		fichaXml.setNumero(ficha.getNumero());
+		fichaXml.setFecha(ficha.getFecha());
+		fichaXml.setMotivoConsulta(ficha.getMotivoConsulta());
+		fichaXml.setDiagnostico(ficha.getDiagnostico());
+		fichaXml.setObservaciones(ficha.getObservaciones());
+		return fichaXml;
+		
+	}
+
 	
 }

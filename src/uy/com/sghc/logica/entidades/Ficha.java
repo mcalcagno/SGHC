@@ -2,16 +2,26 @@ package uy.com.sghc.logica.entidades;
 
 import java.util.Date;
 
+import uy.com.sghc.dtos.FichaDto;
+
 public class Ficha {
 	
 	private Long numero;
     private Date fecha;
-    private Integer diagnostico;
-    private Integer motivoConsulta;
-    private Integer observaciones;
+    private String diagnostico;
+    private String motivoConsulta;
+    private String observaciones;
 	
 	public Ficha(){
 		// constructor por defecto
+	}
+	
+	public Ficha(final FichaDto fichaDto){
+		this.numero = fichaDto.getNumero();
+		this.fecha = fichaDto.getFecha();
+		this.motivoConsulta = fichaDto.getMotivoConsulta();
+		this.diagnostico = fichaDto.getDiagnostico();
+		this.observaciones = fichaDto.getObservaciones();		
 	}
 
 	public Long getNumero() {
@@ -30,27 +40,27 @@ public class Ficha {
 		this.fecha = fecha;
 	}
 
-	public Integer getDiagnostico() {
+	public String getDiagnostico() {
 		return diagnostico;
 	}
 
-	public void setDiagnostico(final Integer diagnostico) {
+	public void setDiagnostico(final String diagnostico) {
 		this.diagnostico = diagnostico;
 	}
 
-	public Integer getMotivoConsulta() {
+	public String getMotivoConsulta() {
 		return motivoConsulta;
 	}
 
-	public void setMotivoConsulta(final Integer motivoConsulta) {
+	public void setMotivoConsulta(final String motivoConsulta) {
 		this.motivoConsulta = motivoConsulta;
 	}
 
-	public Integer getObservaciones() {
+	public String getObservaciones() {
 		return observaciones;
 	}
 
-	public void setObservaciones(final Integer observaciones) {
+	public void setObservaciones(final String observaciones) {
 		this.observaciones = observaciones;
 	};
 }

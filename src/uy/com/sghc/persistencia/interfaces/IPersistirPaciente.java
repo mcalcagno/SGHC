@@ -2,7 +2,6 @@ package uy.com.sghc.persistencia.interfaces;
 
 import java.util.List;
 
-import uy.com.sghc.dtos.PacienteFichasSimpleDto;
 import uy.com.sghc.excepciones.SGHCExcepcion;
 import uy.com.sghc.logica.entidades.Ficha;
 import uy.com.sghc.logica.entidades.Paciente;
@@ -44,22 +43,6 @@ public interface IPersistirPaciente {
 	 * @throws SGHCExcepcion en caso de que no exista el paciente
 	 */
 	public List<Ficha> obtenerFichasPaciente(Long cedula) throws SGHCExcepcion;
-
-	/**
-	 * lista los pacientes que contegan el string paraemtro en alguno de sus atibutos
-	 * @param busqueda
-	 * @return List<Paciente>
-	 * @throws SGHCExcepcion
-	 */
-	public List<Paciente> buscarPacientesPorString(String busqueda) throws SGHCExcepcion;
-	
-	/**
-	 * lista las fichas que contegan el string paraemtro en alguno de sus atibutos
-	 * @param busqueda, booleno de si lleva o no paciente, y en cao de llevarlo la cedula del pacinete
-	 * @return List<Fichas>
-	 * @throws SGHCExcepcion
-	 */
-	public List<Ficha> buscarFichasPorString(String busqueda,boolean porPaciente, Long cedula) throws SGHCExcepcion;
 
 	/**
 	 * agregar una ficha a un paciente

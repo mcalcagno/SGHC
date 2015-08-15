@@ -1,6 +1,7 @@
 package uy.com.sghc.persistencia.xml;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -8,33 +9,32 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "Ficha")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Ficha", propOrder = {
     "numero",
     "fecha",
     "diagnostico",
     "motivoConsulta",
-    "obseravaciones"
+    "observaciones"
 })
 
 public class FichaXml {
 	
 	@XmlElement(name = "Numero")
-    private Integer numero;
-	@XmlElement(name = "fecha")
+    private Long numero;
+	@XmlElement(name = "Fecha")
     private Date fecha;
 	@XmlElement(name = "Diagnostico")
-    private Integer diagnostico;
+    private String diagnostico;
 	@XmlElement(name = "MotivoConsulta")
-    private Integer motivoConsulta;
+    private String motivoConsulta;
 	@XmlElement(name = "Observaciones")
-    private Integer observaciones;
+    private String observaciones;
 	
-	public Integer getNumero() {
+	public Long getNumero() {
 		return numero;
 	}
-	public void setNumero(Integer numero) {
+	public void setNumero(Long numero) {
 		this.numero = numero;
 	}
 	public Date getFecha() {
@@ -43,25 +43,23 @@ public class FichaXml {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public Integer getDiagnostico() {
+	public String getDiagnostico() {
 		return diagnostico;
 	}
-	public void setDiagnostico(Integer diagnostico) {
+	public void setDiagnostico(String diagnostico) {
 		this.diagnostico = diagnostico;
 	}
-	public Integer getMotivoConsulta() {
+	public String getMotivoConsulta() {
 		return motivoConsulta;
 	}
-	public void setMotivoConsulta(Integer motivoConsulta) {
+	public void setMotivoConsulta(String motivoConsulta) {
 		this.motivoConsulta = motivoConsulta;
 	}
-	public Integer getObservaciones() {
+	public String getObservaciones() {
 		return observaciones;
 	}
-	public void setObservaciones(Integer observaciones) {
+	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
 	
-	
-
 }

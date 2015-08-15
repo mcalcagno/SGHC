@@ -4,19 +4,19 @@ import java.util.Date;
 
 public class FichaDto {
 	
-	private Integer numero;
+	private Long numero;
     private Date fecha;
-    private Integer diagnostico;
-    private Integer motivoConsulta;
-    private Integer observaciones;
+    private String diagnostico;
+    private String motivoConsulta;
+    private String observaciones;
 	
 	public FichaDto(){}
 
-	public Integer getNumero() {
+	public Long getNumero() {
 		return numero;
 	}
 
-	public void setNumero(final Integer numero) {
+	public void setNumero(final Long numero) {
 		this.numero = numero;
 	}
 
@@ -28,27 +28,27 @@ public class FichaDto {
 		this.fecha = fecha;
 	}
 
-	public Integer getDiagnostico() {
+	public String getDiagnostico() {
 		return diagnostico;
 	}
 
-	public void setDiagnostico(final Integer diagnostico) {
+	public void setDiagnostico(final String diagnostico) {
 		this.diagnostico = diagnostico;
 	}
 
-	public Integer getMotivoConsulta() {
+	public String getMotivoConsulta() {
 		return motivoConsulta;
 	}
 
-	public void setMotivoConsulta(final Integer motivoConsulta) {
+	public void setMotivoConsulta(final String motivoConsulta) {
 		this.motivoConsulta = motivoConsulta;
 	}
 
-	public Integer getObservaciones() {
+	public String getObservaciones() {
 		return observaciones;
 	}
 
-	public void setObservaciones(final Integer observaciones) {
+	public void setObservaciones(final String observaciones) {
 		this.observaciones = observaciones;
 	};
 }
