@@ -46,33 +46,9 @@ public class ControlPersistirPaciente implements IPersistirPaciente{
 	public List<Paciente> buscarPacientesPorString(final String busqueda) throws SGHCExcepcion {
 		// TODO: solo para probar es esto
 		List<Paciente> lista = new LinkedList<Paciente>();
-
-		Paciente paciente1 = new Paciente();
-		paciente1.setCi(Long.valueOf(123456789));
-		paciente1.setCelular("099999999");
-		paciente1.setDireccion("calle 1");
-		paciente1.setFichas(null);
-		paciente1.setMail("mail@mail.com");
-		paciente1.setPrimerNombre("Juan");
-		paciente1.setSegundoNombre("Pedro");
-		paciente1.setPrimerApellido("Damiani");
-		paciente1.setSegundoApellido("");
-		paciente1.setTelefono("29000982");
 		
-		Paciente paciente2 = new Paciente();
-		paciente2.setCi(Long.valueOf(987654321));
-		paciente2.setCelular("099994449");
-		paciente2.setDireccion("calle 2");
-		paciente2.setFichas(null);
-		paciente2.setMail("mail@mail.com");
-		paciente2.setPrimerNombre("Pablo  ");
-		paciente2.setSegundoNombre("Javier");
-		paciente2.setPrimerApellido("Bengoechea");
-		paciente2.setSegundoApellido("");
-		paciente2.setTelefono("29000982");
 		
-		lista.add(paciente1);
-		lista.add(paciente2);
+		
 		return lista;
 	}
 
@@ -86,5 +62,10 @@ public class ControlPersistirPaciente implements IPersistirPaciente{
 	public void agregarFichaPaciente(final Ficha ficha, final long cedula) throws SGHCExcepcion {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Long> obtenerPacientesIndices() throws SGHCExcepcion {
+		return ManejadorXml.newInstance().obtenerPacienteIndice();
 	}
 }

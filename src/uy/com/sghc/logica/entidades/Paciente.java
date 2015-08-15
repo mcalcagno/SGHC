@@ -133,9 +133,25 @@ public class Paciente {
 		pacienteDto.setSegundoApellido(segundoApellido);
 		pacienteDto.setDireccion(direccion);
 		pacienteDto.setMail(mail);
+		pacienteDto.setTelefono(telefono);
 		pacienteDto.setCelular(celular);
 		return pacienteDto;
 		
+	}
+
+	public boolean validarFiltro(String filtro) {
+		
+		String filtroBusqueda = filtro.toUpperCase().trim(); 
+		return String.valueOf(ci).toUpperCase().contains(filtroBusqueda) || 
+			primerNombre.trim().toUpperCase().contains(filtroBusqueda) ||
+			segundoNombre.trim().toUpperCase().contains(filtroBusqueda) ||
+			primerApellido.trim().toUpperCase().contains(filtroBusqueda) ||
+			segundoApellido.trim().toUpperCase().contains(filtroBusqueda) ||
+			direccion.trim().toUpperCase().contains(filtroBusqueda) ||
+			mail.trim().toUpperCase().contains(filtroBusqueda) ||
+			telefono.trim().toUpperCase().contains(filtroBusqueda) ||
+			celular.trim().toUpperCase().contains(filtroBusqueda);
+			
 	}
 	
 }

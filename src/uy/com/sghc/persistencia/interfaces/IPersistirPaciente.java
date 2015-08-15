@@ -69,4 +69,12 @@ public interface IPersistirPaciente {
 	 */
 	public void agregarFichaPaciente(Ficha ficha, long cedula) throws SGHCExcepcion;
 	
+	/**
+	 * obtener lalista de pacientes persistidos
+	 * @param 
+	 * @return List<Long>
+	 * @throws SGHCExcepcion
+	 */
+	public List<Long> obtenerPacientesIndices() throws SGHCExcepcion;
+	
 }
