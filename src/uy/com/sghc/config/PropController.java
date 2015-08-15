@@ -44,11 +44,16 @@ public class PropController {;
     public static final String INT_LOGIN_USER = "LoginFrame.USER";
     public static final String INT_LOGIN_PASS = "LoginFrame.PASS";
     public static final String INT_LOGIN_BOTON = "LoginFrame.BOTON";
+    public static final String INT_NUEVO_PACIENTE_TITULO = "PacienteFrame.NUEVO_PACIENTE_TITULO";
+    public static final String INT_EDITAR_PACIENTE_TITULO = "PacienteFrame.EDITAR_PACIENTE_TITULO";
+    public static final String INT_PACIENTE_INGRESAR = "PacienteFrame.INGRESAR";
+    public static final String INT_PACIENTE_EDITAR = "PacienteFrame.EDITAR";
     public static final String DESKTOP_LOOKANDFEEL_WIN = "Desktop.LOOKANDFEEL_WIN";
-    public static final String DESKTOP_TITULO = "Desktop.TITULO"; //"Sistema de Gestión de Historias Clínicas";
-    public static final String DESKTOP_MENU_INICIAL = "Desktop.MENU_INICIAL"; //"Inicio";
-    public static final String DESKTOP_MENU_INICIAL_PACIENTE = "Desktop.MENU_INICIAL_PACIENTE"; //"Pacientes";
-    public static final String DESKTOP_MENU_INICIAL_FICHAS = "Desktop.MENU_INICIAL_FICHAS"; //"Fichas";
+    public static final String DESKTOP_TITULO = "Desktop.TITULO";
+    public static final String DESKTOP_MENU_PACIENTE = "Desktop.MENU_PACIENTE";
+    public static final String DESKTOP_MENU_NUEVO_PACIENTE = "Desktop.MENU_NUEVO_PACIENTE";
+    public static final String DESKTOP_MENU_EDITAR_PACIENTE = "Desktop.MENU_EDITAR_PACIENTE"; 
+    public static final String DESKTOP_MENU_INICIAL_FICHAS = "Desktop.MENU_INICIAL_FICHAS";
     
     public static String[] getConfigurableProperties() {
         return getPropConfig(PROP_CONFIGURABLES).split(";");

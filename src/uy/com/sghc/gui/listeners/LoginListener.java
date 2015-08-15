@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 import uy.com.sghc.config.PropController;
 import uy.com.sghc.gui.frames.LoginFrame;
-import uy.com.sghc.gui.frames.components.PrincipalFrame;
+import uy.com.sghc.gui.frames.PrincipalFrame;
 
 public class LoginListener implements ActionListener {
     private static Logger logger = Logger.getLogger(LoginListener.class);

@@ -1,4 +1,4 @@
-package uy.com.sghc.gui.frames.components;
+package uy.com.sghc.gui.frames;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,14 +29,16 @@ public class PrincipalFrame extends JFrame {
 			this.desktop = new JDesktopPane();
 			
 			JMenuBar barra = new JMenuBar(); // create menu bar
-	      	JMenu menuInicial = new JMenu(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL));			
-			JMenuItem menuPacientes = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_PACIENTE)); 
+	      	JMenu menuPaciente = new JMenu(PropController.getPropInterfaz(PropController.DESKTOP_MENU_PACIENTE));			
+			JMenuItem menuNuevoPaciente = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_NUEVO_PACIENTE));
+			JMenuItem menuEditarPaciente = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_EDITAR_PACIENTE));			
 			JMenuItem menuFichas = new JMenuItem(PropController.getPropInterfaz(PropController.DESKTOP_MENU_INICIAL_FICHAS));
 			
-			menuInicial.add(menuPacientes);
-			menuInicial.add(menuFichas);
+			menuPaciente.add(menuNuevoPaciente);
+			menuPaciente.add(menuEditarPaciente);
+			menuPaciente.add(menuFichas);
 
-			barra.add(menuInicial);
+			barra.add(menuPaciente);
 			setJMenuBar(barra);
 			  
 			add(this.desktop);		
@@ -44,13 +46,22 @@ public class PrincipalFrame extends JFrame {
 	        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	        this.setVisible(false);
 
-	        menuPacientes.addActionListener(new ActionListener() {
+	        menuNuevoPaciente.addActionListener(new ActionListener() {
 	            @Override
 	            // display new internal window
 	            public void actionPerformed(final ActionEvent e) {
-	                boolean abrir = abrirVentana(new PacienteFrame());
+	                abrirVentana(new PacienteFrame(PacienteFrame.Operacion.NUEVO));
 	            }
 	        });
+	        
+	        menuEditarPaciente.addActionListener(new ActionListener() {
+	            @Override
+	            // display new internal window
+	            public void actionPerformed(final ActionEvent e) {
+	                abrirVentana(new PacienteFrame(PacienteFrame.Operacion.EDITAR));
+	            }
+	        });
+
 	        
 		} catch (final ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -65,11 +76,12 @@ public class PrincipalFrame extends JFrame {
 	
 	private <T extends JInternalFrame> boolean abrirVentana(final T frame) {
         if (estaCerrado(frame.getTitle())) {
-            desktop.add(frame); 
-            if (frame.isShowing()) {
-                int x = (desktop.getWidth() / 2) - (frame.getWidth() / 2);
-                int y = (desktop.getHeight() / 2) - (frame.getHeight() / 2);
+            this.desktop.add(frame); 
+            if (frame.isVisible()) {
+                int x = 0;//(this.desktop.getWidth() / 2) - (frame.getWidth() / 2);
+                int y = 0;//(this.desktop.getHeight() / 2) - (frame.getHeight() / 2);
                 frame.setLocation(x, y);
+                frame.setSize(this.desktop.getSize().width, this.desktop.getSize().height);
             }
             return true;
         }
