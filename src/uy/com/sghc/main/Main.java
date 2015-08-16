@@ -9,8 +9,6 @@ public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-//                Desktop desktopFrame = new Desktop();
-//                desktopFrame.setVisible(true); // display frame*/
                 LoginFrame log = new LoginFrame();
                 log.setVisible(true);
             }

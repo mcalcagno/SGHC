@@ -6,9 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
+import uy.com.sghc.config.PropController;
 import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.excepciones.SGHCExcepcion;
 import uy.com.sghc.gui.frames.PacienteFrame;
@@ -19,7 +18,6 @@ public class EditarPacienteListener implements ActionListener {
 
 	private PacienteFrame pacienteFrame;
 	private static IFachadaPaciente fachadaPaciente = new ControlPaciente();
-	private static Logger logger = Logger.getLogger(LoginListener.class);
 	
 	public EditarPacienteListener(final PacienteFrame pacienteFrame) {
 		this.pacienteFrame = pacienteFrame;
@@ -27,18 +25,14 @@ public class EditarPacienteListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		// TODO: cambiar los textos por propiedades
 		// se apretó el botón de ingresar o se ingreso un enter en algun campo 
 		if (editarPaciente(e)) {
 			if (!seCumplenCamposNoNull()) {
-				JOptionPane.showMessageDialog(this.pacienteFrame, "Se deben ingresar todos los datos ",  "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this.pacienteFrame, PropController.getPropInterfaz(PropController.MESS_PACIENTE_VALIDA_DATOS),  "Error", JOptionPane.ERROR_MESSAGE);
 			}					
-			else {
-				if (!cumpleControlCedula()) {
-					JOptionPane.showMessageDialog(this.pacienteFrame, "La cédula no es correcta, debe ingresar solo números ",  "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				if (JOptionPane.YES_OPTION==JOptionPane.showConfirmDialog(this.pacienteFrame, "Quien editar el paciente?", "Confirmar", JOptionPane.YES_NO_OPTION)) {				
+			else {				
+				if (JOptionPane.YES_OPTION==JOptionPane.showConfirmDialog(this.pacienteFrame, PropController.getPropInterfaz(PropController.MESS_PACIENTE_EDITARPACIENTE), 
+						"Confirmar", JOptionPane.YES_NO_OPTION)) {				
 					PacienteDto pacienteDto = new PacienteDto();
 					pacienteDto.setCi(Long.valueOf(this.pacienteFrame.getCedulaTextField().getText()));
 					pacienteDto.setCelular(this.pacienteFrame.getCelularTextField().getText());
@@ -51,10 +45,10 @@ public class EditarPacienteListener implements ActionListener {
 					pacienteDto.setTelefono(this.pacienteFrame.getTelefonoTextField().getText());
 					try {
 						fachadaPaciente.editarPaciente(pacienteDto);
-						logger.log(Level.DEBUG, "Se editó el paciente: "+pacienteDto.toString());
 						this.pacienteFrame.dispose();
 					} catch (final SGHCExcepcion e1) {
-						JOptionPane.showMessageDialog(this.pacienteFrame, "Error al editar el paciente. ",  "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(this.pacienteFrame, PropController.getPropInterfaz(PropController.MESS_PACIENTE_ERROREDITAR),  
+								"Error", JOptionPane.ERROR_MESSAGE);
 					}					
 				}
 			}
@@ -62,7 +56,7 @@ public class EditarPacienteListener implements ActionListener {
 	}
 	
 	private boolean editarPaciente(final ActionEvent e) {
-		return e.getSource().equals(this.pacienteFrame.getIngresar()) || e.getSource().equals(this.pacienteFrame.getCedulaTextField()) ||
+		return e.getSource().equals(this.pacienteFrame.getEditar()) || e.getSource().equals(this.pacienteFrame.getCedulaTextField()) ||
 		e.getSource().equals(this.pacienteFrame.getPrimerNombreTextField()) || 
 		e.getSource().equals(this.pacienteFrame.getSegundoNombreTextField()) ||
 		e.getSource().equals(this.pacienteFrame.getPrimerApellidoTextField()) ||
@@ -84,14 +78,5 @@ public class EditarPacienteListener implements ActionListener {
 		StringUtils.isNotEmpty(this.pacienteFrame.getDireccionTextField().getText()) &&
 		StringUtils.isNotEmpty(this.pacienteFrame.getTelefonoTextField().getText()) &&
 		StringUtils.isNotEmpty(this.pacienteFrame.getCelularTextField().getText());
-	}
-	
-	private boolean cumpleControlCedula() {
-		try {
-			Long.parseLong(this.pacienteFrame.getCedulaTextField().getText());			
-			return true;
-		} catch (NumberFormatException nfe){
-			return false;
-		}
 	}	
 }

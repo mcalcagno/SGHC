@@ -5,7 +5,6 @@ import java.util.List;
 import uy.com.sghc.dtos.FichaDto;
 import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.excepciones.SGHCExcepcion;
-import uy.com.sghc.logica.entidades.Ficha;
 
 public interface IFachadaPaciente {
 	

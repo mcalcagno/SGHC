@@ -17,6 +17,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 import uy.com.sghc.config.PropController;
+import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.gui.frames.components.RoundBorder;
 import uy.com.sghc.gui.frames.components.RoundJTextField;
 import uy.com.sghc.gui.listeners.EditarPacienteListener;
@@ -127,7 +128,7 @@ public class PacienteFrame extends JInternalFrame {
         container.add(mailTextField);
         
         agregarListeners(op, nuevoPacienteListener, editarPacienteListener);        
-        
+
         InternalFrameAdapter internalFrameAdapter = new InternalFrameAdapter() {
             @Override
             public void internalFrameClosing(InternalFrameEvent arg0) {
@@ -143,8 +144,10 @@ public class PacienteFrame extends JInternalFrame {
 		this.setAutoscrolls(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         addInternalFrameListener(internalFrameAdapter);        
+        
+        cedulaTextField.requestFocus();
 	}
-	
+
 	private void agregarListeners(final Operacion op, final NuevoPacienteListener nuevoPacienteListener, final EditarPacienteListener editarPacienteListener) {
 		if (op.equals(Operacion.NUEVO)) {
 	        ingresar.setFont(fuente);
@@ -206,7 +209,23 @@ public class PacienteFrame extends JInternalFrame {
 	public JButton getIngresar() {
 		return ingresar;
 	}
+	public JButton getEditar() {
+		return editar;
+	}
 	public RoundJTextField getMailTextField() {
 		return mailTextField;
 	}
+
+	public void setPacienteDtoEditar(final PacienteDto pacienteDtoEditar) {
+		cedulaTextField.setText(String.valueOf(pacienteDtoEditar.getCi()));
+		cedulaTextField.setEditable(false);
+		primerNombreTextField.setText(pacienteDtoEditar.getPrimerNombre());
+		segundoNombreTextField.setText(pacienteDtoEditar.getSegundoNombre());
+		primerApellidoTextField.setText(pacienteDtoEditar.getPrimerApellido());
+		segundoApellidoTextField.setText(pacienteDtoEditar.getSegundoApellido());
+		direccionTextField.setText(pacienteDtoEditar.getDireccion());
+		celularTextField.setText(pacienteDtoEditar.getCelular());
+		telefonoTextField.setText(pacienteDtoEditar.getTelefono());
+		mailTextField.setText(pacienteDtoEditar.getMail());		
+	}	
 }

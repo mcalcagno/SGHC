@@ -15,7 +15,6 @@ import uy.com.sghc.logica.interfaces.IFachadaPaciente;
 import uy.com.sghc.logica.utils.PacientesIndice;
 import uy.com.sghc.persistencia.controladores.ControlPersistirPaciente;
 import uy.com.sghc.persistencia.interfaces.IPersistirPaciente;
-import uy.com.sghc.persistencia.manejadores.ManejadorXml;
 
 public class ControlPaciente implements IFachadaPaciente {
 

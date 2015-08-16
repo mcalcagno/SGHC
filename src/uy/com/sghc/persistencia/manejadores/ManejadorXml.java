@@ -59,7 +59,7 @@ public class ManejadorXml {
 		try{
 			JAXBContext jc = JAXBContext.newInstance(PacienteXml.class);
 			Marshaller marshaller = jc.createMarshaller();
-	        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 	        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 	        StringWriter stringWriter = new StringWriter();
 	        marshaller.marshal(this.pacienteXmlFromPaciente(paciente), stringWriter);

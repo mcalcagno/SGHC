@@ -36,6 +36,9 @@ public class PropController {;
     public static final String MESS_CONFIG_OK = "Mensajes.CONFIG_OK";
 	public static final String MESS_PERSIST_FILE_CANT_CLOSE_BUFFER = "Mensajes.PERSIST_FILE_CANT_CLOSE_BUFFER";
 	public static final String MESS_PERSIST_FILE_CANT_CLOSE_FILE = "Mensajes.PERSIST_FILE_CANT_CLOSE_FILE";
+	public static final String MESS_PACIENTE_VALIDA_DATOS = "Mensajes.VALIDA_INGRESADATOS";
+	public static final String MESS_PACIENTE_EDITARPACIENTE = "Mensajes.EDITAR_PACIENTE";
+	public static final String MESS_PACIENTE_ERROREDITAR = "Mensajes.PACIENTE_ERROREDITAR";
 
     /**
      * Propiedades para configuracion de la interfaz grafica

@@ -6,15 +6,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 import uy.com.sghc.config.PropController;
 import uy.com.sghc.gui.frames.LoginFrame;
 import uy.com.sghc.gui.frames.PrincipalFrame;
 
 public class LoginListener implements ActionListener {
-    private static Logger logger = Logger.getLogger(LoginListener.class);
-
     protected static PrincipalFrame desktop = new PrincipalFrame();
     private LoginFrame login;
 
