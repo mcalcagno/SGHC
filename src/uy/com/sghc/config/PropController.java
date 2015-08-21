@@ -1,7 +1,6 @@
 package uy.com.sghc.config;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
@@ -98,6 +97,7 @@ public class PropController {;
         return getPropertyJar(tipoMensaje, INTERFAZ_FILE);
     }
 
+    /*
     private static String getPropertyLocal(final String property, final String fileName) {
         checkLocalFileDir();
         File f = new File(LOCAL_FILE_DIR);
@@ -125,7 +125,7 @@ public class PropController {;
             }
         }
     }
-
+     */
     private static String getPropertyJar(final String property, final String fileName) {
         try {
             Properties prop = new Properties();

@@ -211,7 +211,7 @@ public class ManejadorXml {
 		return doc;
 	}
 	
-	private static Binder<Node> getContextoBinder(Class clase) throws SGHCExcepcion{
+	private static Binder<Node> getContextoBinder(Class<?> clase) throws SGHCExcepcion{
 		Binder<Node> binder = null;
 		try{
 			JAXBContext jaxbContext = JAXBContext.newInstance(clase);

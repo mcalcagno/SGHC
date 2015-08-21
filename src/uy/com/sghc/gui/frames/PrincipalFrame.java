@@ -1,34 +1,48 @@
 package uy.com.sghc.gui.frames;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyVetoException;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.Rectangle;
 
+import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import uy.com.sghc.config.PropController;
-import uy.com.sghc.gui.frames.PacienteFrame;
+import uy.com.sghc.gui.frames.PacienteFrame.Operacion;
 import uy.com.sghc.gui.listeners.BuscarPacienteIFrameListener;
+import uy.com.sghc.gui.listeners.NuevoPacienteIFrameListener;
 
 public class PrincipalFrame extends JFrame {
 
 	private static final long serialVersionUID = -688266337205684858L;
-	
+
 	JDesktopPane desktop;
+
+	private JPanel panelIzquierdo;
 	
 	public PrincipalFrame() {
 		super(PropController.getPropInterfaz(PropController.DESKTOP_TITULO));
 		try {
+			construyePanelIzquierdo();
+			getContentPane().setLayout(new BorderLayout());
+			getContentPane().add(panelIzquierdo, BorderLayout.WEST);
+						
 			UIManager.setLookAndFeel(PropController.getPropInterfaz(PropController.DESKTOP_LOOKANDFEEL_WIN));
-			
 			this.desktop = new JDesktopPane();
+			this.desktop.setBackground(Color.DARK_GRAY);
 			
 			JMenuBar barra = new JMenuBar(); // create menu bar
 	      	JMenu menuPaciente = new JMenu(PropController.getPropInterfaz(PropController.DESKTOP_MENU_PACIENTE));			
@@ -49,14 +63,7 @@ public class PrincipalFrame extends JFrame {
 	        this.setVisible(false);
 	        this.setLocationRelativeTo(null);
 
-	        menuNuevoPaciente.addActionListener(new ActionListener() {
-	            @Override
-	            // display new internal window
-	            public void actionPerformed(final ActionEvent e) {
-	            	PacienteFrame pacienteFrame = new PacienteFrame(PacienteFrame.Operacion.NUEVO);	            	
-	            	abrirVentana(pacienteFrame);	                
-	            }
-	        });
+	        menuNuevoPaciente.addActionListener(new NuevoPacienteIFrameListener(this, Operacion.NUEVO));
 	        menuBuscarPaciente.addActionListener(new BuscarPacienteIFrameListener(this));
 	        	        
 		} catch (final ClassNotFoundException e) {
@@ -70,6 +77,19 @@ public class PrincipalFrame extends JFrame {
 		}		
 	}
 	
+	private void construyePanelIzquierdo() {
+		panelIzquierdo = new JPanel();
+        panelIzquierdo.setLayout(new BoxLayout(panelIzquierdo, BoxLayout.PAGE_AXIS));
+        panelIzquierdo.setBackground(Color.LIGHT_GRAY);
+        JButton botonNuevoPaciente = addIcon(panelIzquierdo, new Point(10, 10), "NUEVO PACIENTE ", UIManager.getIcon("Tree.openIcon"));
+		JButton botonBuscarPaciente = addIcon(panelIzquierdo, new Point(10, 100), "BUSCAR PACIENTE", UIManager.getIcon("FileChooser.listViewIcon"));
+		
+		addIcon(panelIzquierdo, new Point(10, 100), "NUEVA FICHA", UIManager.getIcon("Tree.openIcon"));
+		
+		botonNuevoPaciente.addActionListener(new NuevoPacienteIFrameListener(this, PacienteFrame.Operacion.NUEVO));
+		botonBuscarPaciente.addActionListener(new BuscarPacienteIFrameListener(this));	
+	}
+
 	public <T extends JInternalFrame> boolean abrirVentana(final T frame) {
         if (estaCerrado(frame.getTitle())) {
             this.desktop.add(frame); 
@@ -108,8 +128,40 @@ public class PrincipalFrame extends JFrame {
         	i++;
         }
         if (jif!=null) {
-//        	jif.setSize(getWidth()/2, getHeight()/2);
         	jif.moveToBack();
         }
-    }    
+    }
+    
+    private static JButton addIcon(final JComponent pane, final Point p, final String text, final Icon icon) {
+        final JButton button = new JButton(text, icon);
+        button.setVerticalTextPosition(SwingConstants.BOTTOM);
+        button.setHorizontalTextPosition(SwingConstants.CENTER);
+        button.setBounds(new Rectangle(p, button.getPreferredSize()));
+        pane.add(button);
+        return button;
+//        Image img = ImageIO.read(getClass().getResource("resources/water.bmp"));
+//        button.setIcon(new ImageIcon(img));
+    }
+    
+    /*
+     *	UIManager.getIcon(	 
+      	Tree.collapsedIcon
+		FileChooser.directoryIcon
+		FileChooser.detailsViewIcon
+		OptionPane.questionIcon
+		FileChooser.newFolderIcon
+		FileView.floppyDriveIcon
+		Tree.openIcon
+		Tree.expandedIcon
+		OptionPane.informationIcon
+		Tree.closedIcon
+		Tree.leafIcon
+		FileChooser.upFolderIcon
+		OptionPane.errorIcon
+		ToolBar.handleIcon
+		FileChooser.floppyDriveIcon
+		FileChooser.fileIcon
+		RadioButton.icon
+		FileView.fileIcon
+     */
 }

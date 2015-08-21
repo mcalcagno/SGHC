@@ -79,8 +79,9 @@ public class BuscarPacienteFrame extends JInternalFrame {
         
         tabla = new JTable(model) {
 			private static final long serialVersionUID = 1L;
+			
 			@Override
-            public Class getColumnClass(int columna) {
+            public Class<?> getColumnClass(int columna) {
                 if (columna == 1) {
                     return Long.class;
                 }

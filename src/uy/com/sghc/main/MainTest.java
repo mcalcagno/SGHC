@@ -1,29 +1,11 @@
 package uy.com.sghc.main;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-
-import uy.com.sghc.config.PropController;
 import uy.com.sghc.dtos.FichaDto;
 import uy.com.sghc.dtos.PacienteDto;
-import uy.com.sghc.excepciones.SGHCExcepcion;
 import uy.com.sghc.logica.contoladores.ControlPaciente;
-import uy.com.sghc.logica.entidades.Ficha;
-import uy.com.sghc.logica.entidades.Paciente;
 import uy.com.sghc.logica.interfaces.IFachadaPaciente;
-import uy.com.sghc.persistencia.controladores.ControlPersistirPaciente;
-import uy.com.sghc.persistencia.interfaces.IPersistirPaciente;
-import uy.com.sghc.persistencia.manejadores.ManejadorXml;
-import uy.com.sghc.persistencia.xml.PacienteXml;
-import uy.com.sghc.persistencia.xml.PacientesIndiceXml;
 
 
 public class MainTest {
@@ -101,7 +83,7 @@ public class MainTest {
 		try{
 		*/	
 		}catch (Exception e) {
-			String msj = e.getMessage();
+			System.out.print(e.getMessage());
 		}
 		
 		

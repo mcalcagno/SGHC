@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import uy.com.sghc.dtos.FichaDto;
@@ -54,7 +55,7 @@ public class ControlPaciente implements IFachadaPaciente {
 
 	@Override
 	public void agregarFichaPaciente(Long cedula, FichaDto fichaDto) throws SGHCExcepcion {
-		persistenciaPaciente.agregarFichaPaciente(new Ficha(fichaDto), cedula);
+		persistenciaPaciente.agregarFichaPaciente(new Ficha(fichaDto), cedula.longValue());
 	}
 
 	@Override
@@ -62,24 +63,26 @@ public class ControlPaciente implements IFachadaPaciente {
 		
 		Iterator<FichaDto> it = fichasDto.iterator();
 		while(it.hasNext()){
-			persistenciaPaciente.agregarFichaPaciente(new Ficha(it.next()), cedula);
+			persistenciaPaciente.agregarFichaPaciente(new Ficha(it.next()), cedula.longValue());
 		}
 		
 	}
 	
 	@Override
 	public List<PacienteDto> buscarPacientes(final String filtro) throws SGHCExcepcion {
-
+			
 		logger.info("COMIENZA BÚSQUEDA PARA "+filtro);
 		List<PacienteDto> listaRetorno = new ArrayList<PacienteDto>();
-		PacientesIndice indice = PacientesIndice.newInstance();
-		Iterator<Long> it = indice.getPacientes().iterator();
-		while(it.hasNext()){
-			Long cedula = it.next();
-			Paciente paciente = persistenciaPaciente.obtenerPaciente(cedula);
-			if(paciente.validarFiltro(filtro)){
-				logger.debug("se encuentra: "+paciente.toString());
-				listaRetorno.add(paciente.getPacienteDto());
+		if (StringUtils.isNotBlank(filtro)) {
+			PacientesIndice indice = PacientesIndice.newInstance();
+			Iterator<Long> it = indice.getPacientes().iterator();
+			while(it.hasNext()){
+				Long cedula = it.next();
+				Paciente paciente = persistenciaPaciente.obtenerPaciente(cedula);
+				if(paciente.validarFiltro(filtro)){
+					logger.debug("se encuentra: "+paciente.toString());
+					listaRetorno.add(paciente.getPacienteDto());
+				}
 			}
 		}
 		return listaRetorno;

@@ -9,8 +9,6 @@ public class FichaDto {
     private String diagnostico;
     private String motivoConsulta;
     private String observaciones;
-	
-	public FichaDto(){}
 
 	public Long getNumero() {
 		return numero;

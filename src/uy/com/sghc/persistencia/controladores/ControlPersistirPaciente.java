@@ -1,6 +1,5 @@
 package uy.com.sghc.persistencia.controladores;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import uy.com.sghc.excepciones.SGHCExcepcion;
@@ -46,7 +45,7 @@ public class ControlPersistirPaciente implements IPersistirPaciente{
 	public void agregarFichaPaciente(final Ficha ficha, final long cedula) throws SGHCExcepcion {
 		
 		ManejadorXml manejador = ManejadorXml.newInstance();
-		manejador.agregarFichaPaciente(ficha,cedula);
+		manejador.agregarFichaPaciente(ficha, Long.valueOf(cedula));
 		
 	}
 
