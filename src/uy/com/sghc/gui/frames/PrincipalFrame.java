@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.beans.PropertyVetoException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -34,7 +35,6 @@ public class PrincipalFrame extends JFrame {
 	private static final long serialVersionUID = -688266337205684858L;
 
 	JDesktopPane desktop;
-
 	private JPanel panelIzquierdo;
 	
 	public PrincipalFrame() {
@@ -92,7 +92,7 @@ public class PrincipalFrame extends JFrame {
         // TODO: ver la manera de que los botones queden de igual tamaño 
         JButton botonNuevoPaciente = addIcon(panelIzquierdo, new Point(10, 10),   "NUEVO PACIENTE   ", UIManager.getIcon("Tree.openIcon"));
 		JButton botonBuscarPaciente = addIcon(panelIzquierdo, new Point(10, 100), "BUSCAR PACIENTE", UIManager.getIcon("FileChooser.listViewIcon"));
-		JButton botonNuevaFicha = addIcon(panelIzquierdo, new Point(10, 100), "    BUSCAR FICHA   ", UIManager.getIcon("Tree.openIcon"));
+		JButton botonNuevaFicha = addIcon(panelIzquierdo, new Point(10, 100), "     BUSCAR FICHA   ", UIManager.getIcon("Tree.openIcon"));
 		
 		botonNuevoPaciente.addActionListener(new NuevoPacienteIFrameListener(this, PacienteFrame.Operacion.NUEVO));
 		botonBuscarPaciente.addActionListener(new BuscarPacienteIFrameListener(this));	
@@ -109,19 +109,28 @@ public class PrincipalFrame extends JFrame {
 	}
 
 	public <T extends JInternalFrame> boolean abrirVentana(final T frame) {
-        if (estaCerrado(frame.getTitle())) {
-            this.desktop.add(frame); 
+		if (estaCerrado(frame.getTitle())) {
+            this.desktop.add(frame);
+            try {
+    			frame.setSelected(true);
+    		} catch (PropertyVetoException e) {
+    			// TODO Auto-generated catch block					
+    		}
+    		frame.toFront();
             if (frame.isVisible()) {
                 int x = 0;//(this.desktop.getWidth() / 2) - (frame.getWidth() / 2);
                 int y = 0;//(this.desktop.getHeight() / 2) - (frame.getHeight() / 2);
                 frame.setLocation(x, y);
                 frame.setSize(this.desktop.getSize().width, this.desktop.getSize().height);
-    			Icon icon = new ImageIcon(getClass().getResource("/imagenes/IconoFrame.png"));
-    	        frame.setFrameIcon(icon);
-            }
+    			Icon icon = new ImageIcon(getClass().getResource(PropController.getPropInterfaz(PropController.DESKTOP_IFRAME_ICON)));
+    	        frame.setFrameIcon(icon);   
+    	        
+            }            
             return true;
+        } else {    
+        	frame.toFront();
+	        return false;
         }
-        return false;
     }
 
     private boolean estaCerrado(final String tituloIntFrame){

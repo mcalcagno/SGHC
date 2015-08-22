@@ -20,6 +20,7 @@ import uy.com.sghc.config.PropController;
 import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.gui.frames.components.RoundBorder;
 import uy.com.sghc.gui.frames.components.RoundJTextField;
+import uy.com.sghc.gui.listeners.AgregarFichaListener;
 import uy.com.sghc.gui.listeners.EditarPacienteListener;
 import uy.com.sghc.gui.listeners.NuevoPacienteListener;
 
@@ -47,10 +48,13 @@ public class PacienteFrame extends JInternalFrame {
 	private RoundJTextField mailTextField = new RoundJTextField(20);
 	private JButton ingresar = new JButton(PropController.getPropInterfaz(PropController.INT_PACIENTE_INGRESAR));
 	private JButton editar = new JButton(PropController.getPropInterfaz(PropController.INT_PACIENTE_EDITAR));
+	private JButton agregarFicha = new JButton(PropController.getPropInterfaz(PropController.INT_PACIENTE_NUEVAFICHA));
+	PrincipalFrame principalFrame;
 	
-	public PacienteFrame(final Operacion op) {
+	public PacienteFrame(final Operacion op, final PrincipalFrame principalFrame) {
 		super(op.equals(Operacion.NUEVO) ? PropController.getPropInterfaz(PropController.INT_NUEVO_PACIENTE_TITULO) : 
-				PropController.getPropInterfaz(PropController.INT_EDITAR_PACIENTE_TITULO), true, true, true, true);								
+				PropController.getPropInterfaz(PropController.INT_EDITAR_PACIENTE_TITULO), true, true, true, true);
+		this.principalFrame = principalFrame;
 		inicializarComponentes(getContentPane(), op);
 	}
 	
@@ -58,6 +62,7 @@ public class PacienteFrame extends JInternalFrame {
 		
 		NuevoPacienteListener nuevoPacienteListener = new NuevoPacienteListener(this);
 		EditarPacienteListener editarPacienteListener = new EditarPacienteListener(this);
+		AgregarFichaListener agregarFichaListener = new AgregarFichaListener(this.principalFrame);
 		
         cp.setLayout(new FlowLayout());
 
@@ -126,8 +131,8 @@ public class PacienteFrame extends JInternalFrame {
         container.add(mailLabel);      
         mailTextField.setFont(fuente);
         container.add(mailTextField);
-        
-        agregarListeners(op, nuevoPacienteListener, editarPacienteListener);        
+        agregarBotones(op);
+        agregarListeners(op, nuevoPacienteListener, editarPacienteListener, agregarFichaListener);     
 
         InternalFrameAdapter internalFrameAdapter = new InternalFrameAdapter() {
             @Override
@@ -147,13 +152,28 @@ public class PacienteFrame extends JInternalFrame {
         
         cedulaTextField.requestFocus();
 	}
-
-	private void agregarListeners(final Operacion op, final NuevoPacienteListener nuevoPacienteListener, final EditarPacienteListener editarPacienteListener) {
+	
+	private void agregarBotones(final Operacion op) {
 		if (op.equals(Operacion.NUEVO)) {
-	        ingresar.setFont(fuente);
-	        ingresar.setForeground(Color.BLACK);        
+			ingresar.setFont(fuente);
+	        ingresar.setForeground(Color.BLACK);
 	        container.add(new JLabel(""));
-	        container.add(ingresar);
+	        container.add(ingresar);	        
+		} else {
+			editar.setFont(fuente);
+	        editar.setForeground(Color.BLACK);        
+	        container.add(new JLabel(""));
+	        container.add(editar);	        
+		}
+        agregarFicha.setFont(fuente);
+        agregarFicha.setForeground(Color.BLACK);        
+        container.add(new JLabel(""));        
+        container.add(agregarFicha);
+	}
+
+	private void agregarListeners(final Operacion op, final NuevoPacienteListener nuevoPacienteListener, 
+			final EditarPacienteListener editarPacienteListener, final AgregarFichaListener agregarFichaListener) {
+		if (op.equals(Operacion.NUEVO)) {
 	        ingresar.addActionListener(nuevoPacienteListener);
 		    cedulaTextField.addActionListener(nuevoPacienteListener);
 	        primerNombreTextField.addActionListener(nuevoPacienteListener);
@@ -165,10 +185,6 @@ public class PacienteFrame extends JInternalFrame {
 	        mailTextField.addActionListener(nuevoPacienteListener);
 	        celularTextField.addActionListener(nuevoPacienteListener);
         } else {
-	        editar.setFont(fuente);
-	        editar.setForeground(Color.BLACK);        
-	        container.add(new JLabel(""));
-	        container.add(editar);
 	        editar.addActionListener(editarPacienteListener);       
 		    cedulaTextField.addActionListener(editarPacienteListener);
 	        primerNombreTextField.addActionListener(editarPacienteListener);
@@ -180,6 +196,7 @@ public class PacienteFrame extends JInternalFrame {
 	        mailTextField.addActionListener(editarPacienteListener);
 	        celularTextField.addActionListener(editarPacienteListener);
         }
+		agregarFicha.addActionListener(agregarFichaListener);
 	}
 	
 	public RoundJTextField getCedulaTextField() {

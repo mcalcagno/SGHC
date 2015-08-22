@@ -19,7 +19,7 @@ public class NuevoPacienteIFrameListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		principalFrame.abrirVentana(new PacienteFrame(op));
+		principalFrame.abrirVentana(new PacienteFrame(op, principalFrame));
 	}
 
 }

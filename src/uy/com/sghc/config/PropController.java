@@ -49,13 +49,14 @@ public class PropController {;
     public static final String INT_LOGIN_PASS = "LoginFrame.PASS";
     public static final String INT_LOGIN_BOTON = "LoginFrame.BOTON";
     public static final String INT_NUEVO_PACIENTE_TITULO = "PacienteFrame.NUEVO_PACIENTE_TITULO";
-    public static final String INT_BUSCAR_PACIENTE_LABEL = "PacienFrame.BUSCAR_PACIENTE_LABEL";
+    public static final String INT_BUSCAR_PACIENTE_LABEL = "PacienteFrame.BUSCAR_PACIENTE_LABEL";
     public static final String INT_BUSCAR_PACIENTE_TITULO = "PacienteFrame.BUSCAR_PACIENTE_TITULO";
     public static final String INT_BUSCAR_PACIENTE_TABLA_COL1 = "PacienteFrame.BUSCAR_PACIENTE_TABLA_COL1";
     public static final String INT_BUSCAR_PACIENTE_TABLA_COL2 = "PacienteFrame.BUSCAR_PACIENTE_TABLA_COL2";
     public static final String INT_EDITAR_PACIENTE_TITULO = "PacienteFrame.EDITAR_PACIENTE_TITULO";
     public static final String INT_PACIENTE_INGRESAR = "PacienteFrame.INGRESAR";
     public static final String INT_PACIENTE_EDITAR = "PacienteFrame.EDITAR";
+    public static final String INT_PACIENTE_NUEVAFICHA = "PacienteFrame.NUEVAFICHA";
     public static final String DESKTOP_LOOKANDFEEL_WIN = "Desktop.LOOKANDFEEL_WIN";
     public static final String DESKTOP_ICON = "Desktop.ICON"; 
     public static final String DESKTOP_TITULO = "Desktop.TITULO";
@@ -67,6 +68,7 @@ public class PropController {;
     public static final String DESKTOP_BTN_NUEVOPACIENTE_ICON = "Desktop.BTN_NUEVOPACIENTE_ICON";
     public static final String DESKTOP_BTN_BUSCARPACIENTE_ICON = "Desktop.BTN_BUSCARPACIENTE_ICON";
     public static final String DESKTOP_BTN_FICHA_ICON = "Desktop.BTN_FICHA_ICON";
+    public static final String DESKTOP_IFRAME_ICON = "Desktop.IFRAME_ICON";
     
     public static String[] getConfigurableProperties() {
         return getPropConfig(PROP_CONFIGURABLES).split(";");

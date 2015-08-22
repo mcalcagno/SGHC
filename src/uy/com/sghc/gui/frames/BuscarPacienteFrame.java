@@ -109,7 +109,7 @@ public class BuscarPacienteFrame extends JInternalFrame {
         {
 			private static final long serialVersionUID = 1L;
 			public void actionPerformed(ActionEvent e) {
-				final PacienteFrame pacienteFrame = new PacienteFrame(PacienteFrame.Operacion.EDITAR);
+				final PacienteFrame pacienteFrame = new PacienteFrame(PacienteFrame.Operacion.EDITAR, principalFrame);
 				pacienteFrame.setPacienteDtoEditar(buscarPaciente(listaPacientes, (Long)model.getValueAt(tabla.getSelectedRow(), 0)));
             	principalFrame.abrirVentana(pacienteFrame);	
         		principalFrame.mandarAlFondoInternalFrame(PropController.getPropInterfaz(PropController.INT_BUSCAR_PACIENTE_TITULO));
