@@ -41,8 +41,8 @@ public class LoginFrame  extends JFrame {
         this.setResizable(false);
         
         Image icon = null;
-        if (FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGO))!=null) {
-        	icon = new ImageIcon(FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGO))).getImage();
+        if (FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGOICON))!=null) {
+        	icon = new ImageIcon(FileAccesor.getURL(PropController.getPropInterfaz(PropController.INT_LOGIN_LOGOICON))).getImage();
         }        
         setIconImage(icon);
     }
@@ -55,7 +55,7 @@ public class LoginFrame  extends JFrame {
         	image = new ImageIcon(url);	
         }
         
-        JLabel label = new JLabel("LABEL");
+        JLabel label = new JLabel();
         label.setBounds(10, 10, 140, 125);
         label.setIcon(image);
         panel.add(label);

@@ -43,11 +43,13 @@ public class PropController {;
      * Propiedades para configuracion de la interfaz grafica
      */
     public static final String INT_LOGIN_LOGO = "LoginFrame.LOGO";
+    public static final String INT_LOGIN_LOGOICON = "LoginFrame.LOGOICON";
     public static final String INT_LOGIN_TITULO = "LoginFrame.TITULO";
     public static final String INT_LOGIN_USER = "LoginFrame.USER";
     public static final String INT_LOGIN_PASS = "LoginFrame.PASS";
     public static final String INT_LOGIN_BOTON = "LoginFrame.BOTON";
     public static final String INT_NUEVO_PACIENTE_TITULO = "PacienteFrame.NUEVO_PACIENTE_TITULO";
+    public static final String INT_BUSCAR_PACIENTE_LABEL = "PacienFrame.BUSCAR_PACIENTE_LABEL";
     public static final String INT_BUSCAR_PACIENTE_TITULO = "PacienteFrame.BUSCAR_PACIENTE_TITULO";
     public static final String INT_BUSCAR_PACIENTE_TABLA_COL1 = "PacienteFrame.BUSCAR_PACIENTE_TABLA_COL1";
     public static final String INT_BUSCAR_PACIENTE_TABLA_COL2 = "PacienteFrame.BUSCAR_PACIENTE_TABLA_COL2";
@@ -55,12 +57,16 @@ public class PropController {;
     public static final String INT_PACIENTE_INGRESAR = "PacienteFrame.INGRESAR";
     public static final String INT_PACIENTE_EDITAR = "PacienteFrame.EDITAR";
     public static final String DESKTOP_LOOKANDFEEL_WIN = "Desktop.LOOKANDFEEL_WIN";
+    public static final String DESKTOP_ICON = "Desktop.ICON"; 
     public static final String DESKTOP_TITULO = "Desktop.TITULO";
     public static final String DESKTOP_MENU_PACIENTE = "Desktop.MENU_PACIENTE";
     public static final String DESKTOP_MENU_NUEVO_PACIENTE = "Desktop.MENU_NUEVO_PACIENTE";
     public static final String DESKTOP_MENU_BUSCAR_PACIENTE = "Desktop.MENU_BUSCAR_PACIENTE";
     public static final String DESKTOP_MENU_EDITAR_PACIENTE = "Desktop.MENU_EDITAR_PACIENTE"; 
     public static final String DESKTOP_MENU_INICIAL_FICHAS = "Desktop.MENU_INICIAL_FICHAS";
+    public static final String DESKTOP_BTN_NUEVOPACIENTE_ICON = "Desktop.BTN_NUEVOPACIENTE_ICON";
+    public static final String DESKTOP_BTN_BUSCARPACIENTE_ICON = "Desktop.BTN_BUSCARPACIENTE_ICON";
+    public static final String DESKTOP_BTN_FICHA_ICON = "Desktop.BTN_FICHA_ICON";
     
     public static String[] getConfigurableProperties() {
         return getPropConfig(PROP_CONFIGURABLES).split(";");

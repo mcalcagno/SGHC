@@ -18,8 +18,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.lang.StringUtils;
@@ -51,41 +53,41 @@ public class BuscarPacienteFrame extends JInternalFrame {
 	}
 
 	private void inicializarComponentes(final Container contentPane) {
-		BorderLayout layoutPrincipal = new BorderLayout();
+		final BorderLayout layoutPrincipal = new BorderLayout();
 		contentPane.setLayout(layoutPrincipal);
 		
 		contentPane.add(containerBuscar, BorderLayout.NORTH);		
 		
-        JLabel buscarLabel = new JLabel("BUSCAR PACIENTES ", JLabel.LEFT);
+        final JLabel buscarLabel = new JLabel(PropController.getPropInterfaz(PropController.INT_BUSCAR_PACIENTE_LABEL), JLabel.LEFT);
         buscarLabel.setFont(fuente);
         buscarLabel.setBorder(border);
         containerBuscar.add(buscarLabel);        
         buscarTextField.setFont(fuente);
         containerBuscar.add(buscarTextField);
         
-        BuscarPacienteListener buscarPacienteListener = new BuscarPacienteListener(this);
-        BuscarPacienteKeyListener buscarPacienteKeyListener = new BuscarPacienteKeyListener(this);
+        final BuscarPacienteListener buscarPacienteListener = new BuscarPacienteListener(this);
+        final BuscarPacienteKeyListener buscarPacienteKeyListener = new BuscarPacienteKeyListener(this);
         buscarTextField.addActionListener(buscarPacienteListener);
         buscarTextField.addKeyListener(buscarPacienteKeyListener);
         
         // *** PANEL TABLA (lista pacientes) ****
-        Object[] columnNames = {
+        final Object[] columnNames = {
                 PropController.getPropInterfaz(PropController.INT_BUSCAR_PACIENTE_TABLA_COL1),
                 PropController.getPropInterfaz(PropController.INT_BUSCAR_PACIENTE_TABLA_COL2), 
                 StringUtils.EMPTY	
         };
-        Object[][] data = {};
+        final Object[][] data = {};
         model = new DefaultTableModel(data, columnNames);
         
         tabla = new JTable(model) {
 			private static final long serialVersionUID = 1L;
 			
 			@Override
-            public Class<?> getColumnClass(int columna) {
-                if (columna == 1) {
+            public Class<?> getColumnClass(final int columna) {
+                if (columna == 0) {
                     return Long.class;
                 }
-                else if (columna == 2) {
+                else if (columna == 1) {
                     return String.class;
                 }
                 else {
@@ -96,8 +98,14 @@ public class BuscarPacienteFrame extends JInternalFrame {
         tabla.getColumnModel().getColumn(0).setPreferredWidth(20);
         tabla.getColumnModel().getColumn(1).setPreferredWidth(40);
         tabla.getColumnModel().getColumn(2).setPreferredWidth(10);
-
-        Action verPacienteAction = new AbstractAction()
+        
+        final DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+        tcr.setHorizontalAlignment(SwingConstants.LEFT);
+        tabla.getColumnModel().getColumn(0).setCellRenderer(tcr);
+        tabla.getColumnModel().getColumn(1).setCellRenderer(tcr);
+        tabla.getColumnModel().getColumn(2).setCellRenderer(tcr);
+        
+        final Action verPacienteAction = new AbstractAction()
         {
 			private static final long serialVersionUID = 1L;
 			public void actionPerformed(ActionEvent e) {
@@ -119,7 +127,7 @@ public class BuscarPacienteFrame extends JInternalFrame {
 			}
         };
 		
-        ButtonColumn but = new ButtonColumn(tabla, verPacienteAction, 2);
+        final ButtonColumn but = new ButtonColumn(tabla, verPacienteAction, 2);
         but.setMnemonic(KeyEvent.KEY_PRESSED);        
         
         containerLista.add(tabla);	
@@ -129,7 +137,7 @@ public class BuscarPacienteFrame extends JInternalFrame {
         
 		contentPane.add(containerLista, BorderLayout.SOUTH);        		
         		
-		InternalFrameAdapter internalFrameAdapter = new InternalFrameAdapter() {
+		final InternalFrameAdapter internalFrameAdapter = new InternalFrameAdapter() {
             @Override
             public void internalFrameClosing(final InternalFrameEvent arg0) {
                 int i = JOptionPane.showConfirmDialog(null, PropController.getPropMessage(PropController.MESS_CERRAR_VENTANA), 

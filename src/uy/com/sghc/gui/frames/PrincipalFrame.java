@@ -2,11 +2,14 @@ package uy.com.sghc.gui.frames;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
@@ -23,6 +26,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import uy.com.sghc.config.PropController;
 import uy.com.sghc.gui.frames.PacienteFrame.Operacion;
 import uy.com.sghc.gui.listeners.BuscarPacienteIFrameListener;
+import uy.com.sghc.gui.listeners.NuevaFichaListener;
 import uy.com.sghc.gui.listeners.NuevoPacienteIFrameListener;
 
 public class PrincipalFrame extends JFrame {
@@ -36,6 +40,9 @@ public class PrincipalFrame extends JFrame {
 	public PrincipalFrame() {
 		super(PropController.getPropInterfaz(PropController.DESKTOP_TITULO));
 		try {
+			Image icon = new ImageIcon(getClass().getResource(PropController.getPropInterfaz(PropController.DESKTOP_ICON))).getImage();
+	        setIconImage(icon);
+			
 			construyePanelIzquierdo();
 			getContentPane().setLayout(new BorderLayout());
 			getContentPane().add(panelIzquierdo, BorderLayout.WEST);
@@ -81,13 +88,24 @@ public class PrincipalFrame extends JFrame {
 		panelIzquierdo = new JPanel();
         panelIzquierdo.setLayout(new BoxLayout(panelIzquierdo, BoxLayout.PAGE_AXIS));
         panelIzquierdo.setBackground(Color.LIGHT_GRAY);
-        JButton botonNuevoPaciente = addIcon(panelIzquierdo, new Point(10, 10), "NUEVO PACIENTE ", UIManager.getIcon("Tree.openIcon"));
+        
+        // TODO: ver la manera de que los botones queden de igual tamaño 
+        JButton botonNuevoPaciente = addIcon(panelIzquierdo, new Point(10, 10),   "NUEVO PACIENTE   ", UIManager.getIcon("Tree.openIcon"));
 		JButton botonBuscarPaciente = addIcon(panelIzquierdo, new Point(10, 100), "BUSCAR PACIENTE", UIManager.getIcon("FileChooser.listViewIcon"));
-		
-		addIcon(panelIzquierdo, new Point(10, 100), "NUEVA FICHA", UIManager.getIcon("Tree.openIcon"));
+		JButton botonNuevaFicha = addIcon(panelIzquierdo, new Point(10, 100), "    BUSCAR FICHA   ", UIManager.getIcon("Tree.openIcon"));
 		
 		botonNuevoPaciente.addActionListener(new NuevoPacienteIFrameListener(this, PacienteFrame.Operacion.NUEVO));
 		botonBuscarPaciente.addActionListener(new BuscarPacienteIFrameListener(this));	
+		botonNuevaFicha.addActionListener(new NuevaFichaListener(this));
+		try {
+			botonNuevoPaciente.setIcon(new ImageIcon(ImageIO.read(getClass().getResource(PropController.getPropInterfaz(PropController.DESKTOP_BTN_NUEVOPACIENTE_ICON)))));
+			botonBuscarPaciente.setIcon(new ImageIcon(ImageIO.read(getClass().getResource(PropController.getPropInterfaz(PropController.DESKTOP_BTN_BUSCARPACIENTE_ICON)))));
+			botonNuevaFicha.setIcon(new ImageIcon(ImageIO.read(getClass().getResource(PropController.getPropInterfaz(PropController.DESKTOP_BTN_FICHA_ICON)))));
+			
+		} catch (Exception e) {
+			// TODO
+		}
+		
 	}
 
 	public <T extends JInternalFrame> boolean abrirVentana(final T frame) {
@@ -98,6 +116,8 @@ public class PrincipalFrame extends JFrame {
                 int y = 0;//(this.desktop.getHeight() / 2) - (frame.getHeight() / 2);
                 frame.setLocation(x, y);
                 frame.setSize(this.desktop.getSize().width, this.desktop.getSize().height);
+    			Icon icon = new ImageIcon(getClass().getResource("/imagenes/IconoFrame.png"));
+    	        frame.setFrameIcon(icon);
             }
             return true;
         }
