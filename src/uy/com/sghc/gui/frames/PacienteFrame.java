@@ -20,8 +20,8 @@ import uy.com.sghc.config.PropController;
 import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.gui.frames.components.RoundBorder;
 import uy.com.sghc.gui.frames.components.RoundJTextField;
-import uy.com.sghc.gui.listeners.AgregarFichaListener;
 import uy.com.sghc.gui.listeners.EditarPacienteListener;
+import uy.com.sghc.gui.listeners.NuevaFichaIFrameListener;
 import uy.com.sghc.gui.listeners.NuevoPacienteListener;
 
 /**
@@ -62,7 +62,7 @@ public class PacienteFrame extends JInternalFrame {
 		
 		NuevoPacienteListener nuevoPacienteListener = new NuevoPacienteListener(this);
 		EditarPacienteListener editarPacienteListener = new EditarPacienteListener(this);
-		AgregarFichaListener agregarFichaListener = new AgregarFichaListener(this.principalFrame);
+		NuevaFichaIFrameListener agregarFichaListener = new NuevaFichaIFrameListener(this.principalFrame, uy.com.sghc.gui.frames.NuevaFichaFrame.Operacion.NUEVO);
 		
         cp.setLayout(new FlowLayout());
 
@@ -172,7 +172,7 @@ public class PacienteFrame extends JInternalFrame {
 	}
 
 	private void agregarListeners(final Operacion op, final NuevoPacienteListener nuevoPacienteListener, 
-			final EditarPacienteListener editarPacienteListener, final AgregarFichaListener agregarFichaListener) {
+			final EditarPacienteListener editarPacienteListener, final NuevaFichaIFrameListener nuevaFichaIFrameListener) {
 		if (op.equals(Operacion.NUEVO)) {
 	        ingresar.addActionListener(nuevoPacienteListener);
 		    cedulaTextField.addActionListener(nuevoPacienteListener);
@@ -196,7 +196,7 @@ public class PacienteFrame extends JInternalFrame {
 	        mailTextField.addActionListener(editarPacienteListener);
 	        celularTextField.addActionListener(editarPacienteListener);
         }
-		agregarFicha.addActionListener(agregarFichaListener);
+		agregarFicha.addActionListener(nuevaFichaIFrameListener);
 	}
 	
 	public RoundJTextField getCedulaTextField() {

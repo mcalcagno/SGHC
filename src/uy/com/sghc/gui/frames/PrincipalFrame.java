@@ -27,7 +27,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import uy.com.sghc.config.PropController;
 import uy.com.sghc.gui.frames.PacienteFrame.Operacion;
 import uy.com.sghc.gui.listeners.BuscarPacienteIFrameListener;
-import uy.com.sghc.gui.listeners.NuevaFichaListener;
+import uy.com.sghc.gui.listeners.NuevaFichaIFrameListener;
 import uy.com.sghc.gui.listeners.NuevoPacienteIFrameListener;
 
 public class PrincipalFrame extends JFrame {
@@ -96,7 +96,7 @@ public class PrincipalFrame extends JFrame {
 		
 		botonNuevoPaciente.addActionListener(new NuevoPacienteIFrameListener(this, PacienteFrame.Operacion.NUEVO));
 		botonBuscarPaciente.addActionListener(new BuscarPacienteIFrameListener(this));	
-		botonNuevaFicha.addActionListener(new NuevaFichaListener(this));
+//		botonNuevaFicha.addActionListener(new NuevaFichaListener(this));
 		try {
 			botonNuevoPaciente.setIcon(new ImageIcon(ImageIO.read(getClass().getResource(PropController.getPropInterfaz(PropController.DESKTOP_BTN_NUEVOPACIENTE_ICON)))));
 			botonBuscarPaciente.setIcon(new ImageIcon(ImageIO.read(getClass().getResource(PropController.getPropInterfaz(PropController.DESKTOP_BTN_BUSCARPACIENTE_ICON)))));

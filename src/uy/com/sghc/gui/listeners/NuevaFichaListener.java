@@ -4,19 +4,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import uy.com.sghc.gui.frames.NuevaFichaFrame;
-import uy.com.sghc.gui.frames.PrincipalFrame;
 
 public class NuevaFichaListener implements ActionListener {
 
-	PrincipalFrame principalFrame;
+	private NuevaFichaFrame fichaFrame;
 	
-	public NuevaFichaListener(PrincipalFrame principalFrame) {
-		this.principalFrame = principalFrame;
+	public NuevaFichaListener(NuevaFichaFrame fichaFrame) {
+		this.fichaFrame = fichaFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.principalFrame.abrirVentana(new NuevaFichaFrame());
+		// TODO Auto-generated method stub
+		
 	}
+
 
 }

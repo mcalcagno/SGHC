@@ -4,20 +4,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import uy.com.sghc.gui.frames.NuevaFichaFrame;
+import uy.com.sghc.gui.frames.NuevaFichaFrame.Operacion;
 import uy.com.sghc.gui.frames.PrincipalFrame;
 
-public class AgregarFichaListener  implements ActionListener {
+public class NuevaFichaIFrameListener implements ActionListener {
 
 	PrincipalFrame principalFrame;
+	Operacion op;
 	
-	public AgregarFichaListener(final PrincipalFrame principalFrame) {
+	public NuevaFichaIFrameListener(PrincipalFrame principalFrame, Operacion op) {
 		this.principalFrame = principalFrame;
+		this.op = op;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.principalFrame.abrirVentana(new NuevaFichaFrame());
+		this.principalFrame.abrirVentana(new NuevaFichaFrame(this.op, this.principalFrame));
 	}
 
-	
 }
