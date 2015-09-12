@@ -6,6 +6,7 @@ import uy.com.sghc.dtos.FichaDto;
 import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.logica.contoladores.ControlPaciente;
 import uy.com.sghc.logica.interfaces.IFachadaPaciente;
+import uy.com.sghc.reportes.ficha.ImprimirFicha;
 
 
 public class MainTest {
@@ -16,7 +17,7 @@ public class MainTest {
 		IFachadaPaciente i = new ControlPaciente();
 		
 		try {
-
+/*
 			PacienteDto p1 = new PacienteDto();
 			p1.setCi(new Long(1891));
 			p1.setPrimerNombre("Pablo");
@@ -81,7 +82,8 @@ public class MainTest {
 		lista.add(new Long(88898989));
 		lista.add(new Long(3232222));
 		try{
-		*/	
+		*/
+		ImprimirFicha.imprimir();
 		}catch (Exception e) {
 			System.out.print(e.getMessage());
 		}

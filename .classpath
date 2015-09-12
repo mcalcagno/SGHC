@@ -8,5 +8,11 @@
 	<classpathentry kind="lib" path="C:/Users/mcalcagno/SGHC/lib/commons-lang-2.6.jar" sourcepath="lib/commons-lang-2.6-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/mcalcagno/SGHC/lib/commons-lang-2.6-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/mcalcagno/SGHC/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="lib/jasperreports-6.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-digester-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils-1.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/itext-2.1.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

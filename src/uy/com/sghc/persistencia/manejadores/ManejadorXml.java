@@ -80,7 +80,6 @@ public class ManejadorXml {
 		}
 	}
 	
-
 	public void borrarPaciente(Long cedula) throws SGHCExcepcion{
 		
 		try{
