@@ -62,7 +62,6 @@ public class PacienteFrame extends JInternalFrame {
 		
 		NuevoPacienteListener nuevoPacienteListener = new NuevoPacienteListener(this);
 		EditarPacienteListener editarPacienteListener = new EditarPacienteListener(this);
-		NuevaFichaIFrameListener agregarFichaListener = new NuevaFichaIFrameListener(this.principalFrame, uy.com.sghc.gui.frames.NuevaFichaFrame.Operacion.NUEVO);
 		
         cp.setLayout(new FlowLayout());
 
@@ -132,7 +131,8 @@ public class PacienteFrame extends JInternalFrame {
         mailTextField.setFont(fuente);
         container.add(mailTextField);
         agregarBotones(op);
-        agregarListeners(op, nuevoPacienteListener, editarPacienteListener, agregarFichaListener);     
+        
+        agregarListeners(op, nuevoPacienteListener, editarPacienteListener);     
 
         InternalFrameAdapter internalFrameAdapter = new InternalFrameAdapter() {
             @Override
@@ -172,7 +172,7 @@ public class PacienteFrame extends JInternalFrame {
 	}
 
 	private void agregarListeners(final Operacion op, final NuevoPacienteListener nuevoPacienteListener, 
-			final EditarPacienteListener editarPacienteListener, final NuevaFichaIFrameListener nuevaFichaIFrameListener) {
+			final EditarPacienteListener editarPacienteListener) {
 		if (op.equals(Operacion.NUEVO)) {
 	        ingresar.addActionListener(nuevoPacienteListener);
 		    cedulaTextField.addActionListener(nuevoPacienteListener);
@@ -196,7 +196,9 @@ public class PacienteFrame extends JInternalFrame {
 	        mailTextField.addActionListener(editarPacienteListener);
 	        celularTextField.addActionListener(editarPacienteListener);
         }
-		agregarFicha.addActionListener(nuevaFichaIFrameListener);
+        NuevaFichaIFrameListener agregarFichaListener = new NuevaFichaIFrameListener(this.principalFrame, uy.com.sghc.gui.frames.NuevaFichaFrame.Operacion.NUEVO, 
+				this.getCedulaTextField());
+		agregarFicha.addActionListener(agregarFichaListener);
 	}
 	
 	public RoundJTextField getCedulaTextField() {

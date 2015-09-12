@@ -31,6 +31,7 @@ public class NuevaFichaFrame extends JInternalFrame {
 	private RoundJTextField observacionesTextField = new RoundJTextField(40);;
 	private RoundJTextField motivoTextField = new RoundJTextField(40);;
 	private RoundJTextField fecha = new RoundJTextField(40); 
+	private RoundJTextField cedulaTextField = new RoundJTextField(40);
 	private JButton ingresar = new JButton(PropController.getPropInterfaz(PropController.INT_PACIENTE_INGRESAR));
 	private JButton editar = new JButton(PropController.getPropInterfaz(PropController.INT_PACIENTE_EDITAR));
 	
@@ -38,13 +39,13 @@ public class NuevaFichaFrame extends JInternalFrame {
     private static Font fuente = new Font("SansSerif", Font.BOLD, 14);
     private JPanel container = new JPanel();	
 	
-	public NuevaFichaFrame(final Operacion op, final PrincipalFrame principalFrame) {
+	public NuevaFichaFrame(final Operacion op, RoundJTextField cedula) {
 		super(op.equals(Operacion.NUEVO) ? PropController.getPropInterfaz(PropController.INT_NUEVA_FICHA_TITULO) : 
 			PropController.getPropInterfaz(PropController.INT_EDITAR_FICHA_TITULO), true, true, true, true);
-		inicializarComponentes(getContentPane(), op);	
+		inicializarComponentes(getContentPane(), op, cedula);	
 	} 
 
-	private void inicializarComponentes(final Container cp, final Operacion op) {
+	private void inicializarComponentes(final Container cp, final Operacion op, RoundJTextField cedula) {
 		NuevaFichaListener nuevaFichaListener = new NuevaFichaListener(this);
 		
 		cp.setLayout(new FlowLayout());
@@ -53,9 +54,18 @@ public class NuevaFichaFrame extends JInternalFrame {
         container.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         cp.add(container);
 		
-        GridLayout layout = new GridLayout(9, 2);
+        GridLayout layout = new GridLayout(10, 2);
         container.setLayout(layout);
-                
+
+        JLabel cedulaLabel = new JLabel("Cédula Paciente", JLabel.LEFT);
+        cedulaLabel.setFont(fuente);
+        cedulaLabel.setBorder(border);
+        container.add(cedulaLabel);
+        cedulaTextField.setFont(fuente);
+        cedulaTextField.setText(cedula.getText());
+        cedulaTextField.setEditable(false);
+        container.add(cedulaTextField);
+        
         JLabel numeroLabel = new JLabel("Número", JLabel.LEFT);
         numeroLabel.setFont(fuente);
         numeroLabel.setBorder(border);
@@ -91,7 +101,7 @@ public class NuevaFichaFrame extends JInternalFrame {
 		observacionesTextField.setFont(fuente);
 		container.add(observacionesTextField);
 		
-		agregarBotones(op);
+		agregarBotones(op, nuevaFichaListener);
 		
 		InternalFrameAdapter internalFrameAdapter = new InternalFrameAdapter() {
             @Override
@@ -110,18 +120,51 @@ public class NuevaFichaFrame extends JInternalFrame {
         addInternalFrameListener(internalFrameAdapter);		
 	}
 	
-	private void agregarBotones(final Operacion op) {
+	private void agregarBotones(final Operacion op, final NuevaFichaListener nuevaFichaListener) {
 		if (op.equals(Operacion.NUEVO)) {
 			ingresar.setFont(fuente);
 	        ingresar.setForeground(Color.BLACK);
 	        container.add(new JLabel(""));
-	        container.add(ingresar);	        
+	        container.add(ingresar);	  
+	        ingresar.addActionListener(nuevaFichaListener);
 		} else {
 			editar.setFont(fuente);
 	        editar.setForeground(Color.BLACK);        
 	        container.add(new JLabel(""));
 	        container.add(editar);	        
-		}        
+	        editar.addActionListener(nuevaFichaListener);
+		}
 	}
 
+	public RoundJTextField getNumeroTextField() {
+		return numeroTextField;
+	}
+
+	public RoundJTextField getDiagnosticoTextField() {
+		return diagnosticoTextField;
+	}
+
+	public RoundJTextField getObservacionesTextField() {
+		return observacionesTextField;
+	}
+
+	public RoundJTextField getMotivoTextField() {
+		return motivoTextField;
+	}
+
+	public RoundJTextField getFecha() {
+		return fecha;
+	}
+
+	public JButton getIngresar() {
+		return ingresar;
+	}
+
+	public JButton getEditar() {
+		return editar;
+	}
+
+	public RoundJTextField getCedulaTextField() {
+		return cedulaTextField;
+	}	
 }

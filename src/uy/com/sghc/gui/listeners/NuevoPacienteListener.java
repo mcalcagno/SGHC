@@ -6,8 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.excepciones.SGHCExcepcion;
@@ -19,17 +17,16 @@ public class NuevoPacienteListener implements ActionListener {
 
 	private PacienteFrame pacienteFrame;
 	private static IFachadaPaciente fachadaPaciente = new ControlPaciente();
-	private static Logger logger = Logger.getLogger(LoginListener.class);
 	
 	public NuevoPacienteListener(final PacienteFrame pacienteFrame) {
 		this.pacienteFrame = pacienteFrame;
 	}
 
 	@Override
-	public void actionPerformed(final ActionEvent e) {
+	public void actionPerformed(final ActionEvent actionEvent) {
 		// TODO: cambiar los textos por propiedades
 		// se apretó el botón de ingresar o se ingreso un enter en algun campo 
-		if (ingresarNuevoPaciente(e)) {
+		if (ingresarNuevoPaciente(actionEvent)) {
 			if (!seCumplenCamposNoNull()) {
 				JOptionPane.showMessageDialog(this.pacienteFrame, "Se deben ingresar todos los datos ",  "Error", JOptionPane.ERROR_MESSAGE);
 			}					
@@ -51,8 +48,15 @@ public class NuevoPacienteListener implements ActionListener {
 					pacienteDto.setTelefono(this.pacienteFrame.getTelefonoTextField().getText());
 					try {
 						fachadaPaciente.crearPaciente(pacienteDto);
-						logger.log(Level.DEBUG, "Se dio de alta el paciente: "+pacienteDto.toString());
-						this.pacienteFrame.dispose();
+						this.pacienteFrame.getCedulaTextField().setEnabled(false);
+						this.pacienteFrame.getPrimerNombreTextField().setEnabled(false);
+						this.pacienteFrame.getSegundoNombreTextField().setEnabled(false);
+						this.pacienteFrame.getPrimerApellidoTextField().setEnabled(false);
+						this.pacienteFrame.getSegundoApellidoTextField().setEnabled(false);
+						this.pacienteFrame.getDireccionTextField().setEnabled(false);
+						this.pacienteFrame.getTelefonoTextField().setEnabled(false);
+						this.pacienteFrame.getCelularTextField().setEnabled(false);
+						this.pacienteFrame.getMailTextField().setEnabled(false);
 					} catch (final SGHCExcepcion e1) {
 						JOptionPane.showMessageDialog(this.pacienteFrame, "Error al crear el paciente. ",  "Error", JOptionPane.ERROR_MESSAGE);
 					}					
