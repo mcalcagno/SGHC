@@ -1,7 +1,10 @@
 package uy.com.sghc.reportes.ficha;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import uy.com.sghc.dtos.FichaDto;
@@ -35,9 +38,13 @@ public class ImprimirFicha {
 			JasperReport jasperreport = JasperCompileManager.compileReport(jasperDesgin);
 			jasperPrint = JasperFillManager.fillReport(jasperreport,null,dataSource);
 			JasperExportManager.exportReportToPdfFile(jasperPrint,"C:\\Reportes\\reporte.pdf");
+			Desktop.getDesktop().open(new File("C:\\Reportes\\reporte.pdf"));
 		}catch(FileNotFoundException e){
 			e.printStackTrace();
 		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
