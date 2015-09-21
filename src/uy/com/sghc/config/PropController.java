@@ -57,6 +57,7 @@ public class PropController {;
     public static final String INT_PACIENTE_INGRESAR = "PacienteFrame.INGRESAR";
     public static final String INT_PACIENTE_EDITAR = "PacienteFrame.EDITAR";
     public static final String INT_PACIENTE_NUEVAFICHA = "PacienteFrame.NUEVAFICHA";
+    public static final String INT_PACIENTE_IMPRIMIR_FICHAS = "PacienteFrame.IMPRIMIRFICHAS";
     public static final String DESKTOP_LOOKANDFEEL_WIN = "Desktop.LOOKANDFEEL_WIN";
     public static final String DESKTOP_ICON = "Desktop.ICON"; 
     public static final String DESKTOP_TITULO = "Desktop.TITULO";

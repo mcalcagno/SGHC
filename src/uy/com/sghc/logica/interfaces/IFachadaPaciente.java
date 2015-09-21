@@ -64,4 +64,13 @@ public interface IFachadaPaciente {
 	 */
 	public List<PacienteDto> buscarPacientes(String filtro) throws SGHCExcepcion;
 
+	
+	/**
+	 * Retorna una lista de fichas del paciente identificado por la cedula
+	 * @param cedula
+	 * @return
+	 * @throws SGHCExcepcion cuando no existe el paciente con dicha cedula
+	 */
+	public List<FichaDto> obtenerFichasPaciente(Long cedula) throws SGHCExcepcion;
+
 }

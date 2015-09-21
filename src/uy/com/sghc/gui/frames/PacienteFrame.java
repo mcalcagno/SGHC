@@ -16,11 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
+import org.apache.commons.lang.StringUtils;
+
 import uy.com.sghc.config.PropController;
 import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.gui.frames.components.RoundBorder;
 import uy.com.sghc.gui.frames.components.RoundJTextField;
 import uy.com.sghc.gui.listeners.EditarPacienteListener;
+import uy.com.sghc.gui.listeners.ImprimirFichasListener;
 import uy.com.sghc.gui.listeners.NuevaFichaIFrameListener;
 import uy.com.sghc.gui.listeners.NuevoPacienteListener;
 
@@ -49,6 +52,7 @@ public class PacienteFrame extends JInternalFrame {
 	private JButton ingresar = new JButton(PropController.getPropInterfaz(PropController.INT_PACIENTE_INGRESAR));
 	private JButton editar = new JButton(PropController.getPropInterfaz(PropController.INT_PACIENTE_EDITAR));
 	private JButton agregarFicha = new JButton(PropController.getPropInterfaz(PropController.INT_PACIENTE_NUEVAFICHA));
+	private JButton imprimirFichas = new JButton(PropController.getPropInterfaz(PropController.INT_PACIENTE_IMPRIMIR_FICHAS));
 	PrincipalFrame principalFrame;
 	
 	public PacienteFrame(final Operacion op, final PrincipalFrame principalFrame) {
@@ -69,7 +73,7 @@ public class PacienteFrame extends JInternalFrame {
         container.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         cp.add(container);
 		
-        GridLayout layout = new GridLayout(9, 2);
+        GridLayout layout = new GridLayout(10, 2);
         container.setLayout(layout);
                 
         JLabel ciLabel = new JLabel("Cédula de Identidad", JLabel.LEFT);
@@ -157,18 +161,23 @@ public class PacienteFrame extends JInternalFrame {
 		if (op.equals(Operacion.NUEVO)) {
 			ingresar.setFont(fuente);
 	        ingresar.setForeground(Color.BLACK);
-	        container.add(new JLabel(""));
+	        container.add(new JLabel(StringUtils.EMPTY));
 	        container.add(ingresar);	        
 		} else {
 			editar.setFont(fuente);
 	        editar.setForeground(Color.BLACK);        
-	        container.add(new JLabel(""));
+	        container.add(new JLabel(StringUtils.EMPTY));
 	        container.add(editar);	        
 		}
         agregarFicha.setFont(fuente);
         agregarFicha.setForeground(Color.BLACK);        
-        container.add(new JLabel(""));        
+        container.add(new JLabel(StringUtils.EMPTY));
         container.add(agregarFicha);
+        
+        imprimirFichas.setFont(fuente);
+        imprimirFichas.setForeground(Color.BLACK);        
+        container.add(new JLabel(StringUtils.EMPTY));
+        container.add(imprimirFichas);        
 	}
 
 	private void agregarListeners(final Operacion op, final NuevoPacienteListener nuevoPacienteListener, 
@@ -199,6 +208,9 @@ public class PacienteFrame extends JInternalFrame {
         NuevaFichaIFrameListener agregarFichaListener = new NuevaFichaIFrameListener(this.principalFrame, uy.com.sghc.gui.frames.NuevaFichaFrame.Operacion.NUEVO, 
 				this.getCedulaTextField());
 		agregarFicha.addActionListener(agregarFichaListener);
+		
+		final ImprimirFichasListener imprimirFichasListener = new ImprimirFichasListener(uy.com.sghc.gui.frames.PacienteFrame.Operacion.EDITAR, this);
+		imprimirFichas.addActionListener(imprimirFichasListener);
 	}
 	
 	public RoundJTextField getCedulaTextField() {

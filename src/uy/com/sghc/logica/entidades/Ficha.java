@@ -62,5 +62,15 @@ public class Ficha {
 
 	public void setObservaciones(final String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+	public FichaDto getFichaDto() {
+		FichaDto fichaDto = new FichaDto();
+		fichaDto.setDiagnostico(this.diagnostico);
+		fichaDto.setFecha(this.fecha);
+		fichaDto.setMotivoConsulta(this.motivoConsulta);
+		fichaDto.setNumero(this.numero);
+		fichaDto.setObservaciones(this.observaciones);
+		return fichaDto;
 	};
 }

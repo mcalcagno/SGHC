@@ -88,6 +88,16 @@ public class ControlPaciente implements IFachadaPaciente {
 		return listaRetorno;
 		
 	}
+
+	@Override
+	public List<FichaDto> obtenerFichasPaciente(final Long cedula) throws SGHCExcepcion {
+		final List<FichaDto> fichasDto = new ArrayList<FichaDto>();		
+		final List<Ficha> fichas = persistenciaPaciente.obtenerFichasPaciente(cedula);
+		for (final Ficha ficha : fichas) {
+			fichasDto.add(ficha.getFichaDto());
+		}
+		return fichasDto;
+	}
 	
 	
 }

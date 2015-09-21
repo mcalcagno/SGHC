@@ -1,12 +1,14 @@
 package uy.com.sghc.main;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import uy.com.sghc.dtos.FichaDto;
 import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.logica.contoladores.ControlPaciente;
 import uy.com.sghc.logica.interfaces.IFachadaPaciente;
-import uy.com.sghc.reportes.ficha.ImprimirFicha;
+import uy.com.sghc.reportes.fichasPaciente.ImprimirFichas;
 
 
 public class MainTest {
@@ -83,7 +85,25 @@ public class MainTest {
 		lista.add(new Long(3232222));
 		try{
 		*/
-		ImprimirFicha.imprimir();
+		PacienteDto paciente = new PacienteDto();
+		paciente.setCi(42972023l);
+		paciente.setPrimerNombre("Saul");
+		paciente.setPrimerApellido("Fagundez");
+		
+		List<FichaDto> fichas = new ArrayList<FichaDto>();
+		FichaDto ficha1 = new FichaDto();
+		ficha1.setNumero(123l);
+		ficha1.setObservaciones("Todo de fiesta 1");
+		
+		FichaDto ficha2 = new FichaDto();
+		ficha2.setNumero(333l);
+		ficha2.setObservaciones("Todo de fiesta 2");
+		
+		fichas.add(ficha1);
+		fichas.add(ficha2);
+		
+		ImprimirFichas.imprimir(paciente, fichas);
+		
 		}catch (Exception e) {
 			System.out.print(e.getMessage());
 		}
