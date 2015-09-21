@@ -1,9 +1,11 @@
 package uy.com.sghc.reportes.fichasPaciente;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import uy.com.sghc.config.FileAccesor;
 import uy.com.sghc.dtos.FichaDto;
 import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.reportes.controladores.ManejadorReportes;
@@ -22,6 +24,8 @@ public class ImprimirFichas {
 		parametros.put("nombre", paciente.getNombreYApellido());
 		
 		final ManejadorReportes manejadorReportes = new ManejadorReportes();
-		manejadorReportes.imprimirReporte(dataSource, "C:\\Users\\mcalcagno\\SGHC\\src\\uy\\com\\sghc\\reportes\\fichasPaciente\\FichasPaciente.jrxml", parametros, "reporte.pdf");		
+		
+		final InputStream archivoJrxml = FileAccesor.getInputStream("/reportes/fichasPaciente/fichasPaciente.jrxml");
+		manejadorReportes.imprimirReporte(dataSource, archivoJrxml, parametros, "reporte.pdf");		
 	}	
 }

@@ -2,7 +2,6 @@ package uy.com.sghc.reportes.controladores;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,17 +29,17 @@ public class ManejadorReportes {
 	 * @param param: opcionalmente se le pueden pasar parámetros al reporte
 	 * @param archivoDestino: ruta y nombre del archivo PDF a partir de la ruta base de los reportes
 	 */
-	public void imprimirReporte(final SGHCDataSource dataSource, final String archivoJrxml, final Map<String, Object> param, 
+	public void imprimirReporte(final SGHCDataSource dataSource, final InputStream archivoJrxml, final Map<String, Object> param, 
 			final String archivoDestino) {
 		try {			
-			final InputStream inputStream = new FileInputStream(archivoJrxml);
-			final JasperDesign jasperDesgin = JRXmlLoader.load(inputStream);
-			final JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesgin);
+//			final JasperDesign jasperDesgin = JRXmlLoader.load(archivoJrxml);
+			final JasperReport jasperReport = JasperCompileManager.compileReport(archivoJrxml);
 			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, param, dataSource);
 			   
-			// TODO: colocar en una property la ruta base de los reportes 
-			JasperExportManager.exportReportToPdfFile(jasperPrint, "C:\\Reportes\\"+archivoDestino);
-			Desktop.getDesktop().open(new File("C:\\Reportes\\"+archivoDestino));			
+			// TODO: colocar en una property la ruta base de los reportes
+			final String fileDestinoStr = System.getProperty("java.io.tmpdir")+File.separator+System.currentTimeMillis()+archivoDestino;
+			JasperExportManager.exportReportToPdfFile(jasperPrint, fileDestinoStr);
+			Desktop.getDesktop().open(new File(fileDestinoStr));
 		} catch(final FileNotFoundException e){
 			logger.error("Error: archivo no encontrado ["+archivoJrxml+"]", e);
 		} catch (final JRException e) {
