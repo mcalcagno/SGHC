@@ -21,7 +21,7 @@ public class ImprimirFichas {
 		parametros.put("cedula", paciente.getCi());
 		parametros.put("nombre", paciente.getNombreYApellido());
 		
-		final ManejadorReportes controlReportes = new ManejadorReportes();
-		controlReportes.imprimirReporte(dataSource, "C:\\Users\\mcalcagno\\SGHC\\src\\uy\\com\\sghc\\reportes\\fichasPaciente\\FichasPaciente.jrxml", parametros, "reporte.pdf");		
+		final ManejadorReportes manejadorReportes = new ManejadorReportes();
+		manejadorReportes.imprimirReporte(dataSource, "C:\\Users\\mcalcagno\\SGHC\\src\\uy\\com\\sghc\\reportes\\fichasPaciente\\FichasPaciente.jrxml", parametros, "reporte.pdf");		
 	}	
 }
