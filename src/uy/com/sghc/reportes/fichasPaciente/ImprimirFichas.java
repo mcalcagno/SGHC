@@ -25,7 +25,7 @@ public class ImprimirFichas {
 		
 		final ManejadorReportes manejadorReportes = new ManejadorReportes();
 		
-		final InputStream archivoJrxml = FileAccesor.getInputStream("/reportes/fichasPaciente/fichasPaciente.jrxml");
+		final InputStream archivoJrxml = FileAccesor.getInputStream("/reportes/fichasPaciente.jrxml"); 
 		manejadorReportes.imprimirReporte(dataSource, archivoJrxml, parametros, "reporte.pdf");		
 	}	
 }

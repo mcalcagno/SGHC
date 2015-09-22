@@ -32,7 +32,6 @@ public class ManejadorReportes {
 	public void imprimirReporte(final SGHCDataSource dataSource, final InputStream archivoJrxml, final Map<String, Object> param, 
 			final String archivoDestino) {
 		try {			
-//			final JasperDesign jasperDesgin = JRXmlLoader.load(archivoJrxml);
 			final JasperReport jasperReport = JasperCompileManager.compileReport(archivoJrxml);
 			final JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, param, dataSource);
 			   
