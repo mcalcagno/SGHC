@@ -1,1 +1,4 @@
-bin/*/out
+bin/*
+out/*
+/out
+/bin
