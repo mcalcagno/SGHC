@@ -1,22 +1,20 @@
 package uy.com.sghc.main;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import uy.com.sghc.dtos.FichaDto;
 import uy.com.sghc.dtos.PacienteDto;
-import uy.com.sghc.logica.contoladores.ControlPaciente;
-import uy.com.sghc.logica.interfaces.IFachadaPaciente;
 import uy.com.sghc.reportes.fichasPaciente.ImprimirFichas;
 
 
 public class MainTest {
 
 	
+	@SuppressWarnings("boxing")
 	public static void main(String[] args){
 		
-		IFachadaPaciente i = new ControlPaciente();
+//		IFachadaPaciente i = new ControlPaciente();
 		
 		try {
 /*

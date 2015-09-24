@@ -13,11 +13,10 @@ import uy.com.sghc.reportes.controladores.ManejadorReportes;
 public class ImprimirFichas {
 
 	public static void imprimir(final PacienteDto paciente, final List<FichaDto> fichas) {
-
 		final ImprimirFichaDataSource dataSource = new ImprimirFichaDataSource();
 		for (final FichaDto ficha : fichas) {
 			dataSource.addFichaDto(ficha);
-		}		
+		}
 		
 		final Map<String, Object> parametros = new HashMap<String, Object>();
 		parametros.put("cedula", paciente.getCi());
@@ -27,5 +26,5 @@ public class ImprimirFichas {
 		
 		final InputStream archivoJrxml = FileAccesor.getInputStream("/reportes/fichasPaciente.jrxml"); 
 		manejadorReportes.imprimirReporte(dataSource, archivoJrxml, parametros, "reporte.pdf");		
-	}	
+	}
 }
