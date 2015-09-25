@@ -2,6 +2,7 @@ package uy.com.sghc.gui.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -36,6 +37,7 @@ public class NuevaFichaListener implements ActionListener {
 				fichaDto.setMotivoConsulta(this.fichaFrame.getMotivoTextField().getText());
 				fichaDto.setNumero(Long.valueOf(this.fichaFrame.getNumeroTextField().getText()));
 				fichaDto.setObservaciones(this.fichaFrame.getObservacionesTextField().getText());
+				fichaDto.setFecha((Date)this.fichaFrame.getDatePicker().getModel().getValue());
 				final Long cedula = Long.valueOf(this.fichaFrame.getCedulaTextField().getText());
 				try {
 					fachadaPaciente.agregarFichaPaciente(cedula, fichaDto);
@@ -48,8 +50,7 @@ public class NuevaFichaListener implements ActionListener {
 	}
 
 	private boolean seCumplenCamposNoNull() {
-		return StringUtils.isNotEmpty(this.fichaFrame.getFecha().getText()) && 
-				StringUtils.isNotEmpty(this.fichaFrame.getNumeroTextField().getText()) && 
+		return StringUtils.isNotEmpty(this.fichaFrame.getNumeroTextField().getText()) && 
 				StringUtils.isNotEmpty(this.fichaFrame.getDiagnosticoTextField().getText()) &&
 				StringUtils.isNotEmpty(this.fichaFrame.getMotivoTextField().getText()) && 
 				StringUtils.isNotEmpty(this.fichaFrame.getCedulaTextField().getText());

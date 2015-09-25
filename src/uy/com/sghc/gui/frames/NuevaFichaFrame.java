@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
+import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -16,8 +16,15 @@ import javax.swing.JPanel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
+import net.java.dev.designgridlayout.DesignGridLayout;
+import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
+import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import uy.com.sghc.config.PropController;
+import uy.com.sghc.gui.frames.components.DateLabelFormatter;
 import uy.com.sghc.gui.frames.components.RoundBorder;
+import uy.com.sghc.gui.frames.components.RoundJScrollPane;
+import uy.com.sghc.gui.frames.components.RoundJTextArea;
 import uy.com.sghc.gui.frames.components.RoundJTextField;
 import uy.com.sghc.gui.listeners.NuevaFichaListener;
 
@@ -27,11 +34,20 @@ public class NuevaFichaFrame extends JInternalFrame {
 	
 	public static enum Operacion {NUEVO, EDITAR}
 	private RoundJTextField numeroTextField = new RoundJTextField(40);
-	private RoundJTextField diagnosticoTextField = new RoundJTextField(40);;
-	private RoundJTextField observacionesTextField = new RoundJTextField(40);;
-	private RoundJTextField motivoTextField = new RoundJTextField(40);;
-	private RoundJTextField fecha = new RoundJTextField(40); 
-	private RoundJTextField cedulaTextField = new RoundJTextField(40);
+	
+	private RoundJTextArea diagnosticoAreaField = new RoundJTextArea(6, 80);
+	private RoundJScrollPane diagnosticoScroll = new RoundJScrollPane(diagnosticoAreaField);
+	
+	private RoundJTextArea observacionesAreaField = new RoundJTextArea(6, 80);
+	private RoundJScrollPane observacionesScroll = new RoundJScrollPane(observacionesAreaField);
+	
+	private RoundJTextArea motivoAreaField = new RoundJTextArea(6, 80);
+	private RoundJScrollPane motivoScroll = new RoundJScrollPane(motivoAreaField);
+	
+	private JDatePickerImpl datePicker;
+	
+	private RoundJTextField cedulaTextField = new RoundJTextField(40);	
+	
 	private JButton ingresar = new JButton(PropController.getPropInterfaz(PropController.INT_PACIENTE_INGRESAR));
 	private JButton editar = new JButton(PropController.getPropInterfaz(PropController.INT_PACIENTE_EDITAR));
 	
@@ -54,54 +70,57 @@ public class NuevaFichaFrame extends JInternalFrame {
         container.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         cp.add(container);
 		
-        GridLayout layout = new GridLayout(10, 2);
-        container.setLayout(layout);
+        DesignGridLayout layout = new DesignGridLayout(container);
 
         JLabel cedulaLabel = new JLabel("Cédula Paciente", JLabel.LEFT);
         cedulaLabel.setFont(fuente);
         cedulaLabel.setBorder(border);
-        container.add(cedulaLabel);
         cedulaTextField.setFont(fuente);
         cedulaTextField.setText(cedula.getText());
         cedulaTextField.setEditable(false);
-        container.add(cedulaTextField);
         
         JLabel numeroLabel = new JLabel("Número", JLabel.LEFT);
         numeroLabel.setFont(fuente);
         numeroLabel.setBorder(border);
-        container.add(numeroLabel);
         numeroTextField.setFont(fuente);
-        container.add(numeroTextField);
         
         JLabel fechaLabel = new JLabel("Fecha", JLabel.LEFT);
 		fechaLabel.setFont(fuente);
 		fechaLabel.setBorder(border);
-		container.add(fechaLabel);
-		fecha.setFont(fuente);
-		container.add(fecha);
+		UtilDateModel model = new UtilDateModel();
+		model.setSelected(true);
+		Calendar calendario = Calendar.getInstance();
+		model.setDate(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH));
+		JDatePanelImpl datePanel = new JDatePanelImpl(model);		
+		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());		
 		
 		JLabel motivoLabel = new JLabel("Motivo de consulta", JLabel.LEFT);
 		motivoLabel.setFont(fuente);
 		motivoLabel.setBorder(border);
-		container.add(motivoLabel);
-		motivoTextField.setFont(fuente);
-		container.add(motivoTextField);		
+		motivoAreaField.setFont(fuente);
+		motivoAreaField.setLineWrap(true);
         
 		JLabel diagnosticoLabel = new JLabel("Diagnóstico", JLabel.LEFT);
 		diagnosticoLabel.setFont(fuente);
 		diagnosticoLabel.setBorder(border);
-		container.add(diagnosticoLabel);
-		diagnosticoTextField.setFont(fuente);
-		container.add(diagnosticoTextField);
+		diagnosticoAreaField.setFont(fuente);
+		diagnosticoAreaField.setLineWrap(true);
 		
 		JLabel observacionesLabel = new JLabel("Observaciones", JLabel.LEFT);
 		observacionesLabel.setFont(fuente);
 		observacionesLabel.setBorder(border);
-		container.add(observacionesLabel);
-		observacionesTextField.setFont(fuente);
-		container.add(observacionesTextField);
+		observacionesAreaField.setFont(fuente);
+		observacionesAreaField.setLineWrap(true);
+
+		layout.row().grid(cedulaLabel)			.add(cedulaTextField);
+		layout.row().grid(numeroLabel)			.add(numeroTextField);
+		layout.row().grid(fechaLabel)			.add(datePicker);
+		layout.row().grid(motivoLabel)			.add(motivoScroll);
+		layout.row().grid(diagnosticoLabel)		.add(diagnosticoScroll);
+		layout.row().grid(observacionesLabel)	.add(observacionesScroll);
+		layout.emptyRow();
 		
-		agregarBotones(op, nuevaFichaListener);
+		agregarBotones(op, nuevaFichaListener, layout);
 		
 		InternalFrameAdapter internalFrameAdapter = new InternalFrameAdapter() {
             @Override
@@ -120,18 +139,16 @@ public class NuevaFichaFrame extends JInternalFrame {
         addInternalFrameListener(internalFrameAdapter);		
 	}
 	
-	private void agregarBotones(final Operacion op, final NuevaFichaListener nuevaFichaListener) {
+	private void agregarBotones(final Operacion op, final NuevaFichaListener nuevaFichaListener, final DesignGridLayout layout) {
 		if (op.equals(Operacion.NUEVO)) {
 			ingresar.setFont(fuente);
 	        ingresar.setForeground(Color.BLACK);
-	        container.add(new JLabel(""));
-	        container.add(ingresar);	  
+	        layout.row().right().add(ingresar);
 	        ingresar.addActionListener(nuevaFichaListener);
 		} else {
 			editar.setFont(fuente);
 	        editar.setForeground(Color.BLACK);        
-	        container.add(new JLabel(""));
-	        container.add(editar);	        
+	        layout.row().right().add(editar);	        
 	        editar.addActionListener(nuevaFichaListener);
 		}
 	}
@@ -140,20 +157,16 @@ public class NuevaFichaFrame extends JInternalFrame {
 		return numeroTextField;
 	}
 
-	public RoundJTextField getDiagnosticoTextField() {
-		return diagnosticoTextField;
+	public RoundJTextArea getDiagnosticoTextField() {
+		return diagnosticoAreaField;
 	}
 
-	public RoundJTextField getObservacionesTextField() {
-		return observacionesTextField;
+	public RoundJTextArea getObservacionesTextField() {
+		return observacionesAreaField;
 	}
 
-	public RoundJTextField getMotivoTextField() {
-		return motivoTextField;
-	}
-
-	public RoundJTextField getFecha() {
-		return fecha;
+	public RoundJTextArea getMotivoTextField() {
+		return motivoAreaField;
 	}
 
 	public JButton getIngresar() {
@@ -166,5 +179,9 @@ public class NuevaFichaFrame extends JInternalFrame {
 
 	public RoundJTextField getCedulaTextField() {
 		return cedulaTextField;
+	}
+
+	public JDatePickerImpl getDatePicker() {
+		return datePicker;
 	}	
 }

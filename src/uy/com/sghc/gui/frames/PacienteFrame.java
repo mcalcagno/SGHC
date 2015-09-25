@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -16,8 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
-import org.apache.commons.lang.StringUtils;
-
+import net.java.dev.designgridlayout.DesignGridLayout;
 import uy.com.sghc.config.PropController;
 import uy.com.sghc.dtos.PacienteDto;
 import uy.com.sghc.gui.frames.components.RoundBorder;
@@ -72,69 +70,64 @@ public class PacienteFrame extends JInternalFrame {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         container.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         cp.add(container);
-		
-        GridLayout layout = new GridLayout(10, 2);
-        container.setLayout(layout);
+        
+        DesignGridLayout layout = new DesignGridLayout(container);
                 
         JLabel ciLabel = new JLabel("Cédula de Identidad", JLabel.LEFT);
         ciLabel.setFont(fuente);
-        ciLabel.setBorder(border);
-        container.add(ciLabel);        
+        ciLabel.setBorder(border);       
         cedulaTextField.setFont(fuente);
-        container.add(cedulaTextField);
         
         JLabel nomLabel = new JLabel("Nombres", JLabel.LEFT);
         nomLabel.setFont(fuente);
-        nomLabel.setBorder(border);      
-        container.add(nomLabel);        
+        nomLabel.setBorder(border);       
         JPanel grupoNombre = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         primerNombreTextField.setFont(fuente);
         segundoNombreTextField.setFont(fuente);
         grupoNombre.add(primerNombreTextField);
         grupoNombre.add(segundoNombreTextField);
         grupoNombre.setVisible(true);
-        container.add(grupoNombre);
         
         JLabel apellidoLabel = new JLabel("Apellidos", JLabel.LEFT);
         apellidoLabel.setFont(fuente);
-        apellidoLabel.setBorder(border);
-        container.add(apellidoLabel);       
+        apellidoLabel.setBorder(border);      
         JPanel grupoApellidos = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         primerApellidoTextField.setFont(fuente);
         segundoApellidoTextField.setFont(fuente);
         grupoApellidos.add(primerApellidoTextField);
         grupoApellidos.add(segundoApellidoTextField);
         grupoApellidos.setVisible(true);
-        container.add(grupoApellidos);
         
         JLabel direccionLabel = new JLabel("Dirección", JLabel.LEFT);
         direccionLabel.setFont(fuente);
-        direccionLabel.setBorder(border);
-        container.add(direccionLabel);        
+        direccionLabel.setBorder(border);     
         direccionTextField.setFont(fuente);
-        container.add(direccionTextField);
 
         JLabel telefonoLabel = new JLabel("Teléfono", JLabel.LEFT);
         telefonoLabel.setFont(fuente);
-        telefonoLabel.setBorder(border);
-        container.add(telefonoLabel);      
+        telefonoLabel.setBorder(border);   
         telefonoTextField.setFont(fuente);
-        container.add(telefonoTextField);
 
         JLabel celularLabel = new JLabel("Celular", JLabel.LEFT);
         celularLabel.setFont(fuente);
-        celularLabel.setBorder(border);
-        container.add(celularLabel);      
+        celularLabel.setBorder(border);   
         celularTextField.setFont(fuente);
-        container.add(celularTextField);
         
         JLabel mailLabel = new JLabel("Mail", JLabel.LEFT);
         mailLabel.setFont(fuente);
-        mailLabel.setBorder(border);
-        container.add(mailLabel);      
+        mailLabel.setBorder(border);   
         mailTextField.setFont(fuente);
-        container.add(mailTextField);
-        agregarBotones(op);
+        
+        layout.row().grid(ciLabel)			.add(cedulaTextField);
+        layout.row().grid(nomLabel)			.add(primerNombreTextField)		.add(segundoNombreTextField);
+        layout.row().grid(apellidoLabel)	.add(primerApellidoTextField)	.add(segundoApellidoTextField);
+        layout.row().grid(direccionLabel)	.add(direccionTextField);
+        layout.row().grid(telefonoLabel)	.add(telefonoTextField);
+        layout.row().grid(celularLabel)		.add(celularTextField);
+        layout.row().grid(mailLabel)		.add(mailTextField);
+        layout.emptyRow();
+        
+        agregarBotones(op, layout);
         
         agregarListeners(op, nuevoPacienteListener, editarPacienteListener);     
 
@@ -157,27 +150,21 @@ public class PacienteFrame extends JInternalFrame {
         cedulaTextField.requestFocus();
 	}
 	
-	private void agregarBotones(final Operacion op) {
+	private void agregarBotones(final Operacion op, final DesignGridLayout layout) {		
 		if (op.equals(Operacion.NUEVO)) {
 			ingresar.setFont(fuente);
 	        ingresar.setForeground(Color.BLACK);
-	        container.add(new JLabel(StringUtils.EMPTY));
-	        container.add(ingresar);	        
+	        layout.row().right().add(ingresar);   
 		} else {
 			editar.setFont(fuente);
-	        editar.setForeground(Color.BLACK);        
-	        container.add(new JLabel(StringUtils.EMPTY));
-	        container.add(editar);	        
+	        editar.setForeground(Color.BLACK);	        
+	        layout.row().right().add(editar).add(agregarFicha);
+	        layout.row().right().add(imprimirFichas);
 		}
         agregarFicha.setFont(fuente);
-        agregarFicha.setForeground(Color.BLACK);        
-        container.add(new JLabel(StringUtils.EMPTY));
-        container.add(agregarFicha);
-        
+        agregarFicha.setForeground(Color.BLACK);
         imprimirFichas.setFont(fuente);
-        imprimirFichas.setForeground(Color.BLACK);        
-        container.add(new JLabel(StringUtils.EMPTY));
-        container.add(imprimirFichas);        
+        imprimirFichas.setForeground(Color.BLACK);                
 	}
 
 	private void agregarListeners(final Operacion op, final NuevoPacienteListener nuevoPacienteListener, 
