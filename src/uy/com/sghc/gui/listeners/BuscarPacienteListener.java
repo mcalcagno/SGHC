@@ -23,7 +23,8 @@ public class BuscarPacienteListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(final ActionEvent e) {
-		if (e.getSource().equals(this.buscarPacienteFrame.getBuscarTextField())) {
+		if (e.getSource().equals(this.buscarPacienteFrame.getBuscarTextField()) ||
+				e.getSource().equals(this.buscarPacienteFrame.getBuscarButton())) {
 			try {
 				List<PacienteDto> lista = fachadaPaciente.buscarPacientes(buscarPacienteFrame.getBuscarTextField().getText());
 				// limpio la tabla antes de volver a cargarla
@@ -35,7 +36,8 @@ public class BuscarPacienteListener implements ActionListener {
 				for (PacienteDto paciente : lista) {	
 					this.buscarPacienteFrame.getModel().addRow(new Object[]{paciente.getCi(), 
 							paciente.getNombreYApellido(),
-							"Ver Paciente"});
+							"Ver Paciente",
+							"Ver Fichas"});
 				}
 				this.buscarPacienteFrame.setListaPacientes(lista);
 			} catch (final SGHCExcepcion e1) {

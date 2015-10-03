@@ -2,6 +2,7 @@ package uy.com.sghc.gui.frames.components;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -70,6 +71,8 @@ public class ButtonColumn extends AbstractCellEditor implements TableCellRendere
 		columnModel.getColumn(column).setCellRenderer( this );
 		columnModel.getColumn(column).setCellEditor( this );
 		table.addMouseListener( this );
+		renderButton.setFont(new Font("SansSerif", Font.BOLD, 14));
+		editButton.setFont(new Font("SansSerif", Font.BOLD, 14));
 	}
 
 

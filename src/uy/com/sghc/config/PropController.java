@@ -71,7 +71,8 @@ public class PropController {;
     public static final String DESKTOP_BTN_FICHA_ICON = "Desktop.BTN_FICHA_ICON";
     public static final String DESKTOP_IFRAME_ICON = "Desktop.IFRAME_ICON";
     public static final String INT_NUEVA_FICHA_TITULO = "FichaFrame.NUEVA_FICHA_TITULO";
-    public static final String INT_EDITAR_FICHA_TITULO = "FichaFrame.EDITAR_FICHA_TITULO";
+    public static final String INT_EDITAR_FICHA_TITULO = "FichaFrame.EDITAR_FICHA_TITULO"; 
+    public static final String INT_LISTA_FICHAS_TITULO = "ListadoFichasFrame.TITULO";
     
     public static String[] getConfigurableProperties() {
         return getPropConfig(PROP_CONFIGURABLES).split(";");
